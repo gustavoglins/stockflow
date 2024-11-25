@@ -1,0 +1,87 @@
+package com.stockflow.services;
+
+import com.stockflow.dto.userDtos.UserRequestDTO;
+import com.stockflow.dto.userDtos.UserResponseDTO;
+import com.stockflow.model.user.User;
+import com.stockflow.repositories.UserRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository repository;
+
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
+
+    private Boolean dataValidation(UserRequestDTO userRequestDTO) {
+        if (repository.existsByName(userRequestDTO.name())) {
+            throw new RuntimeException("Name " + userRequestDTO.name() + " already exists");
+        }
+        if (repository.existsByLogin(userRequestDTO.login())) {
+            throw new RuntimeException("Email " + userRequestDTO.login() + " already exists");
+        }
+        return true;
+    }
+
+    @Override
+    public UserResponseDTO create(UserRequestDTO userRequestDTO) {
+        if (dataValidation(userRequestDTO)) {
+            return new UserResponseDTO(repository.save(new User(userRequestDTO)));
+        } else throw new RuntimeException("Unexpected error!");
+    }
+
+    @Override
+    public UserResponseDTO update(UserRequestDTO userRequestDTO) {
+        User userToUpdate = repository.findById(userRequestDTO.id())
+                .orElseThrow(() -> new RuntimeException("User with ID: " + userRequestDTO.id() + " not found."));
+
+        if (!userToUpdate.getName().equals(userRequestDTO.name())) {
+            if (repository.existsByName(userRequestDTO.name())) throw new RuntimeException("Name " + userRequestDTO.name() + " already exists!");
+        }
+        if (!userToUpdate.getLogin().equals(userRequestDTO.login())) {
+            if (repository.existsByLogin(userRequestDTO.login()))
+                throw new RuntimeException("Email " + userRequestDTO.login() + " already exists");
+        }
+
+        userToUpdate.setName(userRequestDTO.name());
+        userToUpdate.setLogin(userRequestDTO.login());
+        userToUpdate.setPassword(userRequestDTO.password());
+        userToUpdate.setCompany(userRequestDTO.company());
+        userToUpdate.setRole(userRequestDTO.role());
+
+        return new UserResponseDTO(repository.save(userToUpdate));
+    }
+
+    @Override
+    public UserResponseDTO findById(UUID id) {
+        User existingUser = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User with ID: " + id + " not found"));
+
+        return new UserResponseDTO(repository.save(existingUser));
+    }
+
+    @Override
+    public List<UserResponseDTO> findAll() {
+        List<User> userList = repository.findAll();
+
+        return userList.stream()
+                .map(UserResponseDTO::new)
+                .toList();
+    }
+
+    @Override
+    public void delete(UUID id) {
+        Optional<User> optionalUser = repository.findById(id);
+        if (optionalUser.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new RuntimeException("User with ID: " + id + " not found");
+        }
+    }
+}
