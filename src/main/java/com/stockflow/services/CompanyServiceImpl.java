@@ -35,7 +35,7 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyResponseDTO create(CompanyRequestDTO companyRequestDTO) {
         if (dataValidation(companyRequestDTO)) {
             return new CompanyResponseDTO(repository.save(new Company(companyRequestDTO)));
-        } else throw new RuntimeException("Unexpected error!");
+        } else throw new RuntimeException("Unexpected error. Company not created");
     }
 
     @Override
@@ -76,9 +76,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyResponseDTO> findAll() {
-        List<Company> companyList = repository.findAll();
-
-        return companyList.stream()
+        return repository.findAll().stream()
                 .map(CompanyResponseDTO::new)
                 .toList();
     }

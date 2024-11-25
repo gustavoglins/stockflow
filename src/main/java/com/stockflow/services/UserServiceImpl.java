@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO create(UserRequestDTO userRequestDTO) {
         if (dataValidation(userRequestDTO)) {
             return new UserResponseDTO(repository.save(new User(userRequestDTO)));
-        } else throw new RuntimeException("Unexpected error!");
+        } else throw new RuntimeException("Unexpected error. User not created");
     }
 
     @Override
@@ -42,11 +42,13 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User with ID: " + userRequestDTO.id() + " not found."));
 
         if (!userToUpdate.getName().equals(userRequestDTO.name())) {
-            if (repository.existsByName(userRequestDTO.name())) throw new RuntimeException("Name " + userRequestDTO.name() + " already exists!");
+            if (repository.existsByName(userRequestDTO.name())) {
+                throw new RuntimeException("Name " + userRequestDTO.name() + " already registered");
+            }
         }
         if (!userToUpdate.getLogin().equals(userRequestDTO.login())) {
             if (repository.existsByLogin(userRequestDTO.login()))
-                throw new RuntimeException("Email " + userRequestDTO.login() + " already exists");
+                throw new RuntimeException("Email " + userRequestDTO.login() + " already registered");
         }
 
         userToUpdate.setName(userRequestDTO.name());
@@ -68,9 +70,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDTO> findAll() {
-        List<User> userList = repository.findAll();
-
-        return userList.stream()
+        return repository.findAll().stream()
                 .map(UserResponseDTO::new)
                 .toList();
     }
