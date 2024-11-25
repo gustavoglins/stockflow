@@ -1,6 +1,7 @@
 package com.stockflow.dto.userDtos;
 
 import com.stockflow.model.company.Company;
+import com.stockflow.model.team.Team;
 import com.stockflow.model.user.User;
 import com.stockflow.model.user.UserRole;
 import jakarta.validation.constraints.NotBlank;
@@ -27,10 +28,10 @@ public record UserRequestDTO(
         @Size(min = 8, message = "Password must have at least 8 characters")
         String password,
 
-        @NotBlank(message = "Company is required")
         Company company,
 
-        @NotBlank(message = "Role is required")
+        Team team,
+
         UserRole role) implements Serializable {
 
     @Serial

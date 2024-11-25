@@ -81,16 +81,8 @@ public class Company implements Serializable {
         return users;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     public List<Product> getProducts() {
         return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     @Override

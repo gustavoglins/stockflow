@@ -2,6 +2,7 @@ package com.stockflow.model.user;
 
 import com.stockflow.dto.userDtos.UserRequestDTO;
 import com.stockflow.model.company.Company;
+import com.stockflow.model.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
@@ -32,21 +33,25 @@ public class User implements Serializable {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private UserRole role;
 
     public User() {
     }
 
-    public User(UserRequestDTO userRequestDTO){
+    public User(UserRequestDTO userRequestDTO) {
         this.name = userRequestDTO.name();
         this.login = userRequestDTO.login();
         this.password = userRequestDTO.password();
         this.company = userRequestDTO.company();
+        this.team = userRequestDTO.team();
         this.role = userRequestDTO.role();
     }
 
@@ -84,6 +89,14 @@ public class User implements Serializable {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public UserRole getRole() {
