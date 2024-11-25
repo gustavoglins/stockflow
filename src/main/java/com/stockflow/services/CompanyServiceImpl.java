@@ -7,7 +7,6 @@ import com.stockflow.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,32 +18,46 @@ public class CompanyServiceImpl implements CompanyService {
         this.repository = repository;
     }
 
+    private Boolean dataValidation(CompanyRequestDTO companyRequestDTO) {
+        if (repository.existsByName(companyRequestDTO.name())) {
+            throw new RuntimeException("Name " + companyRequestDTO.name() + " already registered");
+        }
+        if (repository.existsByLegalName(companyRequestDTO.legalName())) {
+            throw new RuntimeException("Legal name " + companyRequestDTO.legalName() + " already registered");
+        }
+        if (repository.existsByTaxId(companyRequestDTO.taxId())) {
+            throw new RuntimeException("Tax ID " + companyRequestDTO.taxId() + " already registered");
+        }
+        return true;
+    }
+
     @Override
-    public CompanyResponseDTO create(CompanyRequestDTO data) {
-        return new CompanyResponseDTO(repository.save(new Company(data)));
+    public CompanyResponseDTO create(CompanyRequestDTO companyRequestDTO) {
+        if (dataValidation(companyRequestDTO)) {
+            return new CompanyResponseDTO(repository.save(new Company(companyRequestDTO)));
+        } else throw new RuntimeException("Unexpected error!");
     }
 
     @Override
     public CompanyResponseDTO update(CompanyRequestDTO companyRequestDTO) {
-        Optional<Company> optionalCompany = repository.findById(companyRequestDTO.id());
-        if (optionalCompany.isPresent()) {
-            Company selectedCompany = optionalCompany.get();
+        Company companyToUpdate = repository.findById(companyRequestDTO.id())
+                .orElseThrow(() -> new RuntimeException("Company with ID: " + companyRequestDTO.id() + " not found"));
 
-            selectedCompany.setName(companyRequestDTO.name());
-            selectedCompany.setLegalName(companyRequestDTO.legalName());
-            selectedCompany.setTaxId(companyRequestDTO.taxId());
+        if (dataValidation(companyRequestDTO)) {
+            companyToUpdate.setName(companyRequestDTO.name());
+            companyToUpdate.setLegalName(companyRequestDTO.legalName());
+            companyToUpdate.setTaxId(companyRequestDTO.taxId());
 
-            return new CompanyResponseDTO(repository.save(selectedCompany));
-        } else {
-            throw new RuntimeException("Company not found");
-        }
+            return new CompanyResponseDTO(repository.save(companyToUpdate));
+        } else throw new RuntimeException("Unexpected error!");
     }
 
     @Override
     public CompanyResponseDTO findById(UUID id) {
-        Optional<Company> optionalCompany = repository.findById(id);
-        if (optionalCompany.isPresent()) return new CompanyResponseDTO(optionalCompany.get());
-        else throw new RuntimeException("Company not found");
+        Company existingCompany = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Company with ID: " + id + " not found"));
+
+        return new CompanyResponseDTO(existingCompany);
     }
 
     @Override
@@ -58,8 +71,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void delete(UUID id) {
-        Optional<Company> optionalCompany = repository.findById(id);
-        if (optionalCompany.isPresent()) repository.deleteById(id);
-        else throw new RuntimeException("Company not found");
+        if (repository.findById(id).isPresent()) repository.deleteById(id);
+        else throw new RuntimeException("Company with ID: " + id + " not found");
     }
 }
