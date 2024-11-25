@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setLogin(userRequestDTO.login());
         userToUpdate.setPassword(userRequestDTO.password());
         userToUpdate.setCompany(userRequestDTO.company());
+        userToUpdate.setTeam(userRequestDTO.team());
         userToUpdate.setRole(userRequestDTO.role());
 
         return new UserResponseDTO(repository.save(userToUpdate));

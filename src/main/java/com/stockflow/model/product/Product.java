@@ -2,6 +2,7 @@ package com.stockflow.model.product;
 
 import com.stockflow.dto.productDtos.ProductRequestDTO;
 import com.stockflow.model.company.Company;
+import com.stockflow.model.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 
@@ -42,8 +43,12 @@ public class Product implements Serializable {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Product() {
     }
@@ -112,6 +117,10 @@ public class Product implements Serializable {
 
     public Company getCompany() {
         return company;
+    }
+
+    public Team getTeam() {
+        return team;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.stockflow.dto.productDtos;
 
 import com.stockflow.model.company.Company;
+import com.stockflow.model.team.Team;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
@@ -35,8 +36,9 @@ public record ProductRequestDTO(
         @Min(0)
         Integer quantity,
 
-        @NotBlank(message = "Company is required")
-        Company company) implements Serializable {
+        Company company,
+
+        Team team) implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
