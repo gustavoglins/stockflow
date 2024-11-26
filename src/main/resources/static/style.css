@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+:root {
+    --primary-color: #e2f5fe;
+    --second-color: #7aaec6;
+    --background-color: rgb(250, 254, 255);
+    --text-color: #000000;
+    --text-color: #000000;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 1.6rem;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.btn {
+    color: white;
+    background-color: black;
+
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    box-shadow: none;
+    
+    padding: 1.2rem 2.2rem;
+    border-radius: 2.5rem;
+    margin-left: 1.5rem;
+    margin: 10px;
+    font-size: 1.7rem;
+    transform: scale(1);
+
+    transition: transform 0.25s ease;
+}
+
+.btn:hover {
+    transform: scale(1.06);
+}
+
+.header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 5rem;
+}
+
+.header__logo {
+    position: absolute;
+    left: 0rem; 
+}
+
+.header__logo a{
+    font-family: 'League Spartan';
+    font-size: 6.4rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.header__menu {
+    margin: 0 auto;
+}
+
+.header__menu-list {
+    display: flex;
+    gap: 5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center; 
+    align-items: center;
+    background-color: var(--primary-color);
+    padding: 1.2rem 3rem;
+    border-radius: 2rem;
+}
+
+.header__menu-item a{
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+}
+
+.header__user {
+    position: absolute;
+    right: 0rem;
+}
+
+.hero {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.hero__title {
+    font-size: 4.2rem;
+    
+}
+
+.hero__description {
+    font-size: 1.8rem;
+}
+
+.hero__button {
+    padding: 1.3rem 4rem;
+    margin-bottom: 2rem;
+    font-size: 1.9rem;
+}
+
+.image{
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 50vh;
+    margin: 0 auto;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__copy {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
