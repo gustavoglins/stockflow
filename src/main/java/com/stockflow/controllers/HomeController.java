@@ -12,4 +12,14 @@ public class HomeController {
         model.addAttribute("message", "Bem-vindo ao StockFlow!");
         return "home";
     }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
 }
