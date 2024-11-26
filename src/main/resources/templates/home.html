@@ -3,36 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description"
-        content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
+    <meta name="author" content="Gustavo Guimarães Lins de Araújo">
+    <meta name="description" content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
     <title>Home | StockFlow</title>
-    <!-- vscode -->
-    <link rel="stylesheet" href="../static/style.css">
-    <!-- IntelliJ -->
-    <link rel="stylesheet" href="/style.css">
-    <!-- Thymeleaf -->
     <link th:href="@{/style.css}" rel="stylesheet">
 </head>
 
 <body>
-    <!-- <div class="header">
-        <div class="header__logo">
-            <a href="/home">StockFlow</a>
-        </div>
-        <div class="header__menu">
-            <ul class="header__menu-list">
-                <li class="header__menu-item"><a href="/home">Home</a></li>
-                <li class="header__menu-item"><a href="/about">About</a></li>
-                <li class="header__menu-item"><a href="/features">Features</a></li>
-                <li class="header__menu-item"><a href="#faq">FAQ</a></li>
-            </ul>
-        </div>
-        <div class="header__user">
-            <a href="/login"><button class="btn">Login</button></a>
-            <a href="/register"><button class="btn">Signup</button></a>
-        </div>
-    </div> -->
-
     <div class="header">
         <div class="header__logo">
             <a href="/home">StockFlow</a>
@@ -232,48 +209,5 @@
         <p class="footer__copy">&copy; 2024 StockFlow</p>
     </footer>
     <script th:src="@{/js/scripts.js}"></script>
-    <!-- <script>
-        // Toggle content visibility and update styles
-        function toggleFaqContent(header) {
-            const content = header.nextElementSibling;
-            const arrow = header.querySelector('.arrow');
-            const faqCard = header.closest('.faq-card'); // Get the FAQ card container
-
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-                arrow.classList.remove('expanded');
-                faqCard.classList.remove('expanded'); // Remove expanded class to reset background
-            } else {
-                content.style.display = 'block';
-                arrow.classList.add('expanded');
-                faqCard.classList.add('expanded'); // Add expanded class to apply background effect
-            }
-        }
-
-        // Show the header when scrolling up
-        let lastScrollTop = 0; // Guarda a última posição do scroll
-
-        window.addEventListener('scroll', function () {
-            const header = document.querySelector('.header');
-            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-            // Se rolou para baixo, esconde o header
-            if (currentScroll > lastScrollTop && currentScroll > 10) {
-                header.classList.add('hidden');
-            } else {
-                // Se rolou para cima, mostra o header
-                if (currentScroll < lastScrollTop) {
-                    header.classList.remove('hidden');
-                }
-            }
-            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Para não ter valores negativos
-        });
-    </script> -->
-
-    <!-- <script src="../static/script.js"></script>
-    <script src="/script.js"></script>
-    <script th:src="@{/script.js}"></script>
-    <script th:href="@{/script.js}"></script> -->
 </body>
-
 </html>
