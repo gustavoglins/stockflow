@@ -90,11 +90,121 @@
         <div class="section">
             <h2 class="section__title">FAQ</h2>
             <p class="section__description">Find quick answers to common questions about StockFlow.</p>
+            <div class="faq-container">
+                <div class="faq-card">
+                    <div class="faq-card__header" onclick="toggleFaqContent(this)">
+                        <div class="faq-card__header-texts">
+                            <p class="faq-card__number">01</p>
+                            <p class="faq-card__title">What is StockFlow?</p>
+                        </div>
+                        <!-- Seta SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                             stroke-width="1.5" stroke="currentColor" class="arrow">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="faq-card__content">
+                        <p class="faq-card__text">
+                            StockFlow is an API designed for inventory management. It allows users to register, manage products, and track inventory data efficiently.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-card__header" onclick="toggleFaqContent(this)">
+                        <div class="faq-card__header-texts">
+                            <p class="faq-card__number">02</p>
+                            <p class="faq-card__title">How do I add a new product to the inventory?</p>
+                        </div>
+                        <!-- Seta SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                             stroke-width="1.5" stroke="currentColor" class="arrow">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="faq-card__content">
+                        <p class="faq-card__text">
+                            To add a new product, log in to your account, navigate to the "Products" section, and click on the "Add Product" button. Fill out the product details such as name, description, and quantity, then save it.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-card__header" onclick="toggleFaqContent(this)">
+                        <div class="faq-card__header-texts">
+                            <p class="faq-card__number">03</p>
+                            <p class="faq-card__title">Can I edit the product details after adding it?</p>
+                        </div>
+                        <!-- Seta SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                             stroke-width="1.5" stroke="currentColor" class="arrow">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="faq-card__content">
+                        <p class="faq-card__text">
+                            Yes, you can edit product details at any time. Simply go to the "Products" section, select the product you want to edit, and click on the "Edit" button. Update the necessary fields and save the changes.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-card__header" onclick="toggleFaqContent(this)">
+                        <div class="faq-card__header-texts">
+                            <p class="faq-card__number">04</p>
+                            <p class="faq-card__title">How do I manage inventory levels in StockFlow?</p>
+                        </div>
+                        <!-- Seta SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                             stroke-width="1.5" stroke="currentColor" class="arrow">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="faq-card__content">
+                        <p class="faq-card__text">
+                            Inventory levels can be managed by adjusting the quantity of products when receiving new stock or processing sales. Navigate to the product details page, and update the "Quantity" field accordingly.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-card__header" onclick="toggleFaqContent(this)">
+                        <div class="faq-card__header-texts">
+                            <p class="faq-card__number">05</p>
+                            <p class="faq-card__title">How can I view the history of product transactions in StockFlow?</p>
+                        </div>
+                        <!-- Seta SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+                             stroke-width="1.5" stroke="currentColor" class="arrow">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                        </svg>
+                    </div>
+                    <div class="faq-card__content">
+                        <p class="faq-card__text">
+                            To view the transaction history of a product, go to the "Products" section, select the product you're interested in, and click on the "Transaction History" tab. This will display a list of all transactions involving that product, including stock additions and removals.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div> 
 
     <footer class="footer">
         <p class="footer__copy">&copy; 2024 StockFlow</p>
     </footer>
+    <script>
+        // Toggle content visibility and update styles
+        function toggleFaqContent(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+            const faqCard = header.closest('.faq-card'); // Get the FAQ card container
+
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.classList.remove('expanded');
+                faqCard.classList.remove('expanded'); // Remove expanded class to reset background
+            } else {
+                content.style.display = 'block';
+                arrow.classList.add('expanded');
+                faqCard.classList.add('expanded'); // Add expanded class to apply background effect
+            }
+        }
+    </script>
 </body>
 </html>
