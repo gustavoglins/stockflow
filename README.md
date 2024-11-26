@@ -5,4 +5,4 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
-### A secure and intuitive solution to facilitate inventory management and increase efficiency.
+### A Secure and Intuitive Solution to Facilitate Inventory Management and Increase Efficiency.
