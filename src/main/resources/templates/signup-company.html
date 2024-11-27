@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Gustavo Guimarães Lins de Araújo">
+    <meta name="description"
+        content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
+    <title>Sign Up | StockFlow</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/signup.css}" rel="stylesheet">
+    <link th:href="@{/styles/signup-company.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header__logo">
+            <a href="/home">StockFlow</a>
+        </div>
+        <div class="header__menu">
+            <ul class="header__menu-list">
+                <li class="header__menu-item"><a href="/home">Home</a></li>
+                <li class="header__menu-item"><a href="/about">About</a></li>
+                <li class="header__menu-item"><a href="/features">Features</a></li>
+                <li class="header__menu-item"><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="header__user">
+            <a href="/login"><button class="btn">Login</button></a>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="hero">
+            <h1 class="hero__title">Business Account</h1>
+            <p class="hero__step-indicator">Step 2 of 2</p>
+            <p class="hero__description">Provide your company's details.</p>
+        </div>
+
+        <div class="register-card-container">
+            <div class="register-form-container">
+                <form class="register-form" action="#" th:action="@{/api/company}" th:object="${company}" method="post">
+                    <div class="register-from__content">
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="name">Name</label>
+                            <input class="register-form__input" type="text" id="name" th:field="*{name}" required autocomplete="off">
+                        </div>
+
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="legalName">Legal Name</label>
+                            <input class="register-form__input" type="text" id="legalName" th:field="*{legalName}" required autocomplete="off">
+                        </div>
+
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="taxId">Tax ID</label>
+                            <input class="register-form__input" type="text" id="taxId" th:field="*{taxId}" required autocomplete="off">
+                        </div>
+
+                        <!-- <div class="register-form__group">
+                            <label class="register-form__label" for="taxId">Tax ID</label>
+                            <input class="register-form__input" type="text" id="taxId" th:field="*{taxId}" required>
+                        </div> -->
+                    </div>
+
+                    <div class="register-form__button-container">
+                        <button type="submit" class="btn register-form-btn">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="return">
+                <a href="/signup">
+                    <div class="return__content">
+                        <i class="material-icons" style="font-size: 20spx;">west</i>
+                        <p>Back</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/scripts.js}"></script>
+</body>
+
+</html>

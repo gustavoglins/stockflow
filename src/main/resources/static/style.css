@@ -22,7 +22,7 @@
 
 :root {
     --primary-color: #e2f5fe;
-    --second-color: #7aaec6;
+    --second-color: rgb(129, 210, 248);
     --background-color: rgb(250, 254, 255);
     --text-color: #000000;
     --accent-color-1: #8bc1ff;
@@ -48,7 +48,7 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: rgb(250, 254, 255);
+    background-color: var(--background-color);
     color: #000000;
     font-size: 1.6rem;
     max-width: 80%;
@@ -70,6 +70,7 @@ body {
     font-size: 1.7rem;
     transform: scale(1);
     transition: transform 0.25s ease;
+    font-family: 'Inter', sans-serif;
 }
 
 .btn:hover {

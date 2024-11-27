@@ -21,12 +21,12 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<CompanyResponseDTO> crete(@RequestBody @Valid CompanyRequestDTO companyRequestDTO) {
+    public ResponseEntity<CompanyResponseDTO> crete(@ModelAttribute @Valid CompanyRequestDTO companyRequestDTO) {
         return ResponseEntity.ok(service.create(companyRequestDTO));
     }
 
     @PutMapping
-    public ResponseEntity<CompanyResponseDTO> update(@RequestBody @Valid CompanyRequestDTO companyRequestDTO) {
+    public ResponseEntity<CompanyResponseDTO> update(@ModelAttribute @Valid CompanyRequestDTO companyRequestDTO) {
         return ResponseEntity.ok(service.update(companyRequestDTO));
     }
 

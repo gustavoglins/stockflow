@@ -32,6 +32,12 @@ public class Company implements Serializable {
     @Column(unique = true, nullable = false)
     private String taxId;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
