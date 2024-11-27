@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Gustavo Guimarães Lins de Araújo">
+    <meta name="description"
+        content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
+    <title>Sign Up | StockFlow</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/register.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header__logo">
+            <a href="/home">StockFlow</a>
+        </div>
+        <div class="header__menu">
+            <ul class="header__menu-list">
+                <li class="header__menu-item"><a href="/home">Home</a></li>
+                <li class="header__menu-item"><a href="/about">About</a></li>
+                <li class="header__menu-item"><a href="/features">Features</a></li>
+                <li class="header__menu-item"><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="header__user">
+            <a href="/login"><button class="btn">Login</button></a>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="hero">
+            <h1 class="hero__title">Sign Up Account</h1>
+            <p class="hero__step-indicator">Step 1 of 2</p>
+            <p class="hero__description">How are you planning to use StockFlow?</p>
+        </div>
+        <div class="register-card-container">
+            <a href="/signup/company">
+                <div class="register-card">
+                    <div class="register-card__content">
+                        <i class="material-icons icon" style="font-size: 4.5rem;">store</i>
+                        <div class="register-card__content-texts">
+                            <h3>Business Account</h3>
+                            <p>Effortlessly manage inventory for your entire company, ensuring efficiency and control.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="register-card__arrow">
+                        <i class="material-icons" style="font-size: 3rem;">arrow_forward_ios</i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/signup/team">
+                <div class="register-card">
+                    <div class="register-card__content">
+                        <i class="material-icons" style="font-size: 4.5rem;">groups</i>
+                        <div class="register-card__content-texts">
+                            <h3>Team Collaboration</h3>
+                            <p>Work together with your team to keep shared inventory organized and up-to-date.</p>
+                        </div>
+                    </div>
+                    <div class="register-card__arrow">
+                        <i class="material-icons" style="font-size: 3rem;">arrow_forward_ios</i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/signup/personal">
+                <div class="register-card">
+                    <div class="register-card__content">
+                        <i class="material-icons" style="font-size: 4.5rem;">person</i>
+                        <div class="register-card__content-texts">
+                            <h3>Personal Inventory</h3>
+                            <p>Simplify the management of your personal inventory with an easy-to-use interface.</p>
+                        </div>
+                    </div>
+                    <div class="register-card__arrow">
+                        <i class="material-icons" style="font-size: 3rem;">arrow_forward_ios</i>
+                    </div>
+                </div>
+            </a>
+
+            <div class="return">
+                <a href="/home">
+                    <div class="return__content">
+                        <i class="material-icons" style="font-size: 20spx;">west</i>
+                        <p>Back</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/scripts.js}"></script>
+</body>
+
+</html>
