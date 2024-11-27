@@ -11,9 +11,24 @@ public class PagesController {
         return "home";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/signup")
     public String registerPage() {
-        return "register";
+        return "signup";
+    }
+
+    @GetMapping("/signup/company")
+    public String registerCompanyPage(){
+        return "signup-company";
+    }
+
+    @GetMapping("/signup/team")
+    public String registerTeamPage(){
+        return "signup-team";
+    }
+
+    @GetMapping("/signup/personal")
+    public String registerPersonalPage(){
+        return "signup-personal";
     }
 
     @GetMapping("/login")
