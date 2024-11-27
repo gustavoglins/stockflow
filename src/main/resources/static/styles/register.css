@@ -1,0 +1,97 @@
+:root {
+    --primary-color: #e2f5fe;
+}
+
+.hero {
+    margin-bottom: 5rem;
+    gap: 0;
+}
+
+.hero__title {
+    margin-bottom: 2rem;
+}
+
+.hero__step-indicator {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.register-card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.register-card-container a {
+    text-decoration: none;
+    color: black;
+}
+
+.register-card {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    cursor: pointer;
+
+    width: 80rem;
+    height: 10rem;
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 3rem;
+    border: 0px solid transparent;
+
+    transition: transform .3s ease, border .3s ease;
+}
+
+.register-card:hover {
+    transform: scale(1.05);
+    border: .1rem solid rgba(0, 174, 255, .1);
+}
+
+.register-card__content {
+    display: flex;
+    margin-right: auto;
+    align-items: center;
+    gap: 1rem;
+}
+
+.register-card__content-texts {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.register-card__content-texts p {
+    font-weight: 300;
+}
+.register-card__arrow {
+    margin: auto 0;
+    transition: color .3s ease;
+}
+
+.register-card:hover .register-card__arrow {
+    color: rgba(0, 174, 255, .3);
+}
+
+.return a {
+    text-decoration: none;
+}
+
+.return__content {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-bottom: .1rem solid #8f9095;
+    color: #8f9095;
+
+    margin-top: 2rem;
+    transition: border-bottom .3s ease, color .3s ease;
+}
+
+.return__content:hover {
+    border-bottom: .1rem solid #000;
+    color: black;
+}
