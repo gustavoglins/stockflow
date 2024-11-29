@@ -1,6 +1,7 @@
 package com.stockflow.controllers;
 
 import com.stockflow.dto.companyDtos.CompanyRequestDTO;
+import com.stockflow.dto.teamDtos.TeamRequestDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,11 @@ public class PagesController {
 
 
 // -------------------- Home Mapping --------------------
+    @GetMapping
+    public String getHomePage(){
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String homePage() {
         return "home";
@@ -30,7 +36,8 @@ public class PagesController {
     }
 
     @GetMapping("/signup/team")
-    public String signupTeamPage() {
+    public String signupTeamPage(Model model) {
+        model.addAttribute("teamRequestDTO", new TeamRequestDTO());
         return "signup-team";
     }
 
