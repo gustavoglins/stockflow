@@ -44,6 +44,8 @@ public class TeamServiceImpl implements TeamService {
         }
 
         teamToUpdate.setName(teamRequestDTO.name());
+        teamToUpdate.setLogin(teamRequestDTO.login());
+        teamToUpdate.setPassword(teamRequestDTO.login());
 
         return new TeamResponseDTO(repository.save(teamToUpdate));
     }

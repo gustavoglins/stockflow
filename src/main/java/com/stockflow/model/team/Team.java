@@ -18,7 +18,14 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(unique = true, nullable = false)
+    private String login;
+
+    @Column(nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
@@ -31,6 +38,8 @@ public class Team {
 
     public Team(TeamRequestDTO teamRequestDTO) {
         this.name = teamRequestDTO.name();
+        this.login = teamRequestDTO.login();
+        this.password = teamRequestDTO.password();
         this.users = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -45,6 +54,22 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<User> getUsers() {
