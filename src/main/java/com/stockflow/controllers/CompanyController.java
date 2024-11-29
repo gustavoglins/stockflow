@@ -24,7 +24,7 @@ public class CompanyController {
     }
 
     @PostMapping
-    public String create(@Valid CompanyRequestDTO companyRequestDTO, BindingResult result) {
+    public String create(@ModelAttribute @Valid CompanyRequestDTO companyRequestDTO, BindingResult result) {
         try {
             service.create(companyRequestDTO);
 

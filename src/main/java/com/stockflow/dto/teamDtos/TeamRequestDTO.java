@@ -1,6 +1,8 @@
 package com.stockflow.dto.teamDtos;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,10 +18,11 @@ public record TeamRequestDTO(
         @NotBlank(message = "Name is required")
         String name,
 
-        @NotBlank(message = "Login is required")
+        @NotBlank(message = "Email is required")
+        @Email(message = "Email is required")
         String login,
 
-        @NotBlank(message = "Password is required")
+        @Size(min = 8, message = "Password must be at least 8 characters long")
         String password) implements Serializable {
 
     @Serial

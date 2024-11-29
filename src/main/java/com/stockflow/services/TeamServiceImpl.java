@@ -2,6 +2,7 @@ package com.stockflow.services;
 
 import com.stockflow.dto.teamDtos.TeamRequestDTO;
 import com.stockflow.dto.teamDtos.TeamResponseDTO;
+import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.team.Team;
 import com.stockflow.repositories.TeamRepository;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,13 @@ public class TeamServiceImpl implements TeamService {
 
     private Boolean dataValidation(TeamRequestDTO teamRequestDTO) {
         if (repository.existsByName(teamRequestDTO.name())) {
-            throw new RuntimeException("Name " + teamRequestDTO.name() + " already registered");
+            throw new EntityValidationException("Name " + teamRequestDTO.name() + " already registered");
+        }
+        if (repository.existsByLogin(teamRequestDTO.login())) {
+            throw new EntityValidationException("Email " + teamRequestDTO.login() + " already registered");
+        }
+        if (teamRequestDTO.password().length() < 8) {
+            throw new EntityValidationException("Password must be at least 8 characters long");
         }
         return true;
     }
@@ -39,7 +46,12 @@ public class TeamServiceImpl implements TeamService {
 
         if (!teamToUpdate.getName().equals(teamRequestDTO.name())) {
             if (repository.existsByName(teamRequestDTO.name())) {
-                throw new RuntimeException("Name " + teamRequestDTO.name() + " already registered");
+                throw new EntityValidationException("Name " + teamRequestDTO.name() + " already registered");
+            }
+        }
+        if (!teamToUpdate.getLogin().equals(teamRequestDTO.login())) {
+            if (repository.existsByLogin(teamRequestDTO.login())) {
+                throw new EntityValidationException("Email " + teamRequestDTO.login() + " already registered");
             }
         }
 

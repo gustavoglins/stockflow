@@ -2,15 +2,19 @@ package com.stockflow.controllers;
 
 import com.stockflow.dto.teamDtos.TeamRequestDTO;
 import com.stockflow.dto.teamDtos.TeamResponseDTO;
+import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.services.TeamService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/api/team")
 public class TeamController {
 
@@ -21,12 +25,30 @@ public class TeamController {
     }
 
     @PostMapping
-    public ResponseEntity<TeamResponseDTO> create(@RequestBody @Valid TeamRequestDTO teamRequestDTO) {
-        return ResponseEntity.ok(service.create(teamRequestDTO));
+    public String create(@ModelAttribute @Valid TeamRequestDTO teamRequestDTO, BindingResult result, Model model) {
+        try {
+            service.create(teamRequestDTO);
+        } catch (EntityValidationException exception) {
+            if (exception.getMessage().contains("Name")) {
+                result.rejectValue("name", null, exception.getMessage());
+            } else if (exception.getMessage().contains("Email")) {
+                result.rejectValue("login", null, exception.getMessage());
+            } else if (exception.getMessage().contains("Password")) {
+                result.rejectValue("password", null, exception.getMessage());
+            }
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("teamRequestDTO", teamRequestDTO);  // Passando o objeto ao modelo
+            return "signup-team";
+        }
+
+        return "redirect:/dashboard";
     }
 
+
     @PutMapping
-    public ResponseEntity<TeamResponseDTO> update(@RequestBody @Valid TeamRequestDTO teamRequestDTO) {
+    public ResponseEntity<TeamResponseDTO> update(@ModelAttribute @Valid TeamRequestDTO teamRequestDTO) {
         return ResponseEntity.ok(service.update(teamRequestDTO));
     }
 
