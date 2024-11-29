@@ -2,6 +2,7 @@ package com.stockflow.services;
 
 import com.stockflow.dto.userDtos.UserRequestDTO;
 import com.stockflow.dto.userDtos.UserResponseDTO;
+import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.user.User;
 import com.stockflow.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,13 @@ public class UserServiceImpl implements UserService {
 
     private Boolean dataValidation(UserRequestDTO userRequestDTO) {
         if (repository.existsByName(userRequestDTO.name())) {
-            throw new RuntimeException("Name " + userRequestDTO.name() + " already exists");
+            throw new EntityValidationException("Name " + userRequestDTO.name() + " already exists");
         }
         if (repository.existsByLogin(userRequestDTO.login())) {
-            throw new RuntimeException("Email " + userRequestDTO.login() + " already exists");
+            throw new EntityValidationException("Email " + userRequestDTO.login() + " already exists");
+        }
+        if (userRequestDTO.password().length() < 8) {
+            throw new EntityValidationException("Password must be at least 8 characters long");
         }
         return true;
     }
@@ -54,9 +58,6 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setName(userRequestDTO.name());
         userToUpdate.setLogin(userRequestDTO.login());
         userToUpdate.setPassword(userRequestDTO.password());
-        userToUpdate.setCompany(userRequestDTO.company());
-        userToUpdate.setTeam(userRequestDTO.team());
-        userToUpdate.setRole(userRequestDTO.role());
 
         return new UserResponseDTO(repository.save(userToUpdate));
     }

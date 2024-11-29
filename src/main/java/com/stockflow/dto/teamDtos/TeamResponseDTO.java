@@ -2,9 +2,9 @@ package com.stockflow.dto.teamDtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.stockflow.model.collaborator.Collaborator;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.team.Team;
-import com.stockflow.model.user.User;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -30,7 +30,7 @@ public record TeamResponseDTO(
         String password,
 
         @JsonProperty("users")
-        List<User> users,
+        List<Collaborator> collaborators,
 
         @JsonProperty("products")
         List<Product> products) implements Serializable {
@@ -38,7 +38,7 @@ public record TeamResponseDTO(
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public TeamResponseDTO(Team team){
-        this(team.getId(), team.getName(), team.getLogin(), team.getPassword(), team.getUsers(), team.getProducts());
+    public TeamResponseDTO(Team team) {
+        this(team.getId(), team.getName(), team.getLogin(), team.getPassword(), team.getCollaborators(), team.getProducts());
     }
 }

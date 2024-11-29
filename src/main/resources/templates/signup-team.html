@@ -36,14 +36,14 @@
         <div class="hero">
             <h1 class="hero__title">Team Collaboration</h1>
             <p class="hero__step-indicator">Step 2 of 2</p>
-            <p class="hero__description">Provide your team's details.</p>
+            <p class="hero__description">Provide your team's details and data.</p>
         </div>
         <div class="register-card-container">
             <div class="register-form-container">
                 <form class="register-form" th:action="@{/api/team}" th:object="${teamRequestDTO}" method="post">
                     <div class="register-form__content">
                         <div class="register-form__group">
-                            <label class="register-form__label" for="name">Name</label>
+                            <label class="register-form__label" for="name">Team Name</label>
                             <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="name" th:field="*{name}" autocomplete="off">
                             <span class="register-form__error-message" th:errors="*{name}"> </span>
                         </div>

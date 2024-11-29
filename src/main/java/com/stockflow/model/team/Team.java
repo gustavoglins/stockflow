@@ -1,8 +1,8 @@
 package com.stockflow.model.team;
 
 import com.stockflow.dto.teamDtos.TeamRequestDTO;
+import com.stockflow.model.collaborator.Collaborator;
 import com.stockflow.model.product.Product;
-import com.stockflow.model.user.User;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class Team {
     private String password;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users;
+    private List<Collaborator> collaborators;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
@@ -40,7 +40,7 @@ public class Team {
         this.name = teamRequestDTO.name();
         this.login = teamRequestDTO.login();
         this.password = teamRequestDTO.password();
-        this.users = new ArrayList<>();
+        this.collaborators = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
@@ -72,8 +72,8 @@ public class Team {
         this.password = password;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Collaborator> getCollaborators() {
+        return collaborators;
     }
 
     public List<Product> getProducts() {
@@ -85,7 +85,7 @@ public class Team {
         return "Team{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
+                ", collaborators=" + collaborators +
                 ", products=" + products +
                 '}';
     }

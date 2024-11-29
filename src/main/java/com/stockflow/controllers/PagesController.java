@@ -2,6 +2,7 @@ package com.stockflow.controllers;
 
 import com.stockflow.dto.companyDtos.CompanyRequestDTO;
 import com.stockflow.dto.teamDtos.TeamRequestDTO;
+import com.stockflow.dto.userDtos.UserRequestDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +43,8 @@ public class PagesController {
     }
 
     @GetMapping("/signup/personal")
-    public String signupPersonalPage() {
+    public String signupPersonalPage(Model model) {
+        model.addAttribute("userRequestDTO", new UserRequestDTO());
         return "signup-personal";
     }
 

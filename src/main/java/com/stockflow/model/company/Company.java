@@ -1,6 +1,7 @@
 package com.stockflow.model.company;
 
 import com.stockflow.dto.companyDtos.CompanyRequestDTO;
+import com.stockflow.model.employee.Employee;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.user.User;
 import jakarta.persistence.*;
@@ -44,7 +45,7 @@ public class Company implements Serializable {
     private String password;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users;
+    private List<Employee> employees;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
@@ -59,7 +60,7 @@ public class Company implements Serializable {
         this.contactPhone = companyRequestDTO.contactPhone();
         this.login = companyRequestDTO.login();
         this.password = companyRequestDTO.password();
-        this.users = new ArrayList<>();
+        this.employees = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
@@ -115,8 +116,8 @@ public class Company implements Serializable {
         this.password = password;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
     public List<Product> getProducts() {
@@ -130,7 +131,7 @@ public class Company implements Serializable {
                 ", name='" + name + '\'' +
                 ", legalName='" + legalName + '\'' +
                 ", taxId='" + taxId + '\'' +
-                ", users=" + users +
+                ", employees=" + employees +
                 ", products=" + products +
                 '}';
     }

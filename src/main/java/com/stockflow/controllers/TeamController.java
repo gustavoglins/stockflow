@@ -28,6 +28,7 @@ public class TeamController {
     public String create(@ModelAttribute @Valid TeamRequestDTO teamRequestDTO, BindingResult result, Model model) {
         try {
             service.create(teamRequestDTO);
+
         } catch (EntityValidationException exception) {
             if (exception.getMessage().contains("Name")) {
                 result.rejectValue("name", null, exception.getMessage());

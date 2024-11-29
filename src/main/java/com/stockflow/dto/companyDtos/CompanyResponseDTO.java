@@ -2,6 +2,7 @@ package com.stockflow.dto.companyDtos;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.stockflow.model.company.Company;
+import com.stockflow.model.employee.Employee;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.user.User;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 /**
  * DTO for {@link com.stockflow.model.company.Company}
  */
-@JsonPropertyOrder({"id", "name", "legalName", "taxId", "contactPhone", "login", "password", "users", "products"})
+@JsonPropertyOrder({"id", "name", "legalName", "taxId", "contactPhone", "login", "password", "employees", "products"})
 public record CompanyResponseDTO(
 
         @JsonPropertyOrder("id")
@@ -38,7 +39,7 @@ public record CompanyResponseDTO(
         String password,
 
         @JsonPropertyOrder("users")
-        List<User> users,
+        List<Employee> employees,
 
         @JsonPropertyOrder("products")
         List<Product> products) implements Serializable {
@@ -55,7 +56,7 @@ public record CompanyResponseDTO(
                 company.getContactPhone(),
                 company.getLogin(),
                 company.getPassword(),
-                company.getUsers(),
+                company.getEmployees(),
                 company.getProducts());
     }
 }

@@ -1,8 +1,6 @@
 package com.stockflow.model.user;
 
 import com.stockflow.dto.userDtos.UserRequestDTO;
-import com.stockflow.model.company.Company;
-import com.stockflow.model.team.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
@@ -32,17 +30,6 @@ public class User implements Serializable {
     @Size(min = 8)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
-
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
-
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
-
     public User() {
     }
 
@@ -50,9 +37,6 @@ public class User implements Serializable {
         this.name = userRequestDTO.name();
         this.login = userRequestDTO.login();
         this.password = userRequestDTO.password();
-        this.company = userRequestDTO.company();
-        this.team = userRequestDTO.team();
-        this.role = userRequestDTO.role();
     }
 
     public UUID getId() {
@@ -83,30 +67,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -114,8 +74,6 @@ public class User implements Serializable {
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", company=" + company +
-                ", role=" + role +
                 '}';
     }
 

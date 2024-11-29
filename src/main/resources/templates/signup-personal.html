@@ -9,7 +9,7 @@
     <title>Sign Up | StockFlow</title>
     <link th:href="@{/style.css}" rel="stylesheet">
     <link th:href="@{/styles/signup.css}" rel="stylesheet">
-    <link th:href="@{/styles/signup-company.css}" rel="stylesheet">
+    <link th:href="@{/styles/signup-team.css}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 </head>
@@ -34,38 +34,18 @@
 
     <div class="app-container">
         <div class="hero">
-            <h1 class="hero__title">Business Account</h1>
+            <h1 class="hero__title">Personal Inventory</h1>
             <p class="hero__step-indicator">Step 2 of 2</p>
-            <p class="hero__description">Provide your company's details and data.</p>
+            <p class="hero__description">Provide your data.</p>
         </div>
-
         <div class="register-card-container">
             <div class="register-form-container">
-                <form class="register-form" th:action="@{/api/company}" th:object="${companyRequestDTO}" method="post">
-                    <div class="register-from__content">
-
+                <form class="register-form" th:action="@{/api/user}" th:object="${userRequestDTO}" method="post">
+                    <div class="register-form__content">
                         <div class="register-form__group">
                             <label class="register-form__label" for="name">Name</label>
                             <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="name" th:field="*{name}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{name}"></span>
-                        </div>
-
-                        <div class="register-form__group">
-                            <label class="register-form__label" for="legalName">Legal Name</label>
-                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="legalName" th:field="*{legalName}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{legalName}"></span>
-                        </div>
-
-                        <div class="register-form__group">
-                            <label class="register-form__label" for="taxId">Tax ID</label>
-                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="taxId" th:field="*{taxId}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{taxId}"></span>
-                        </div>
-
-                        <div class="register-form__group">
-                            <label class="register-form__label" for="contactPhone">Contact Phone</label>
-                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="contactPhone" th:field="*{contactPhone}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{contactPhone}"></span>
+                            <span class="register-form__error-message" th:errors="*{name}"> </span>
                         </div>
 
                         <div class="register-form__group">
@@ -77,7 +57,7 @@
                         <div class="register-form__group">
                             <label class="register-form__label" for="password">Password</label>
                             <input class="register-form__input" th:errorClass="register-form__input-error" type="password" id="password" th:field="*{password}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{password}"></span>
+                            <span class="register-form__error-message" th:errors="*{password}"> </span>
                         </div>
                     </div>
 
@@ -85,16 +65,15 @@
                         <button type="submit" class="btn register-form-btn">Sign Up</button>
                     </div>
                 </form>
-            </div>
-
-            <div class="return">
-                <a href="/signup">
-                    <div class="return__content">
-                        <i class="material-icons" style="font-size: 20spx;">west</i>
-                        <p>Back</p>
-                    </div>
-                </a>
-            </div>
+            </di>
+        </div>
+        <div class="return">
+            <a href="/signup">
+                <div class="return__content">
+                    <i class="material-icons" style="font-size: 20spx;">west</i>
+                    <p>Back</p>
+                </div>
+            </a>
         </div>
     </div>
 
