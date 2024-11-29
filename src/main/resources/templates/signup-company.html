@@ -11,6 +11,7 @@
     <link th:href="@{/styles/signup.css}" rel="stylesheet">
     <link th:href="@{/styles/signup-company.css}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -40,27 +41,44 @@
 
         <div class="register-card-container">
             <div class="register-form-container">
-                <form class="register-form" action="#" th:action="@{/api/company}" th:object="${company}" method="post">
+                <form class="register-form" th:action="@{/api/company}" th:object="${companyRequestDTO}" method="post">
                     <div class="register-from__content">
+
                         <div class="register-form__group">
                             <label class="register-form__label" for="name">Name</label>
-                            <input class="register-form__input" type="text" id="name" th:field="*{name}" required autocomplete="off">
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="name" th:field="*{name}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{name}"></span>
                         </div>
 
                         <div class="register-form__group">
                             <label class="register-form__label" for="legalName">Legal Name</label>
-                            <input class="register-form__input" type="text" id="legalName" th:field="*{legalName}" required autocomplete="off">
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="legalName" th:field="*{legalName}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{legalName}"></span>
                         </div>
 
                         <div class="register-form__group">
                             <label class="register-form__label" for="taxId">Tax ID</label>
-                            <input class="register-form__input" type="text" id="taxId" th:field="*{taxId}" required autocomplete="off">
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="taxId" th:field="*{taxId}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{taxId}"></span>
                         </div>
 
-                        <!-- <div class="register-form__group">
-                            <label class="register-form__label" for="taxId">Tax ID</label>
-                            <input class="register-form__input" type="text" id="taxId" th:field="*{taxId}" required>
-                        </div> -->
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="contactPhone">Contact Phone</label>
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="text" id="contactPhone" th:field="*{contactPhone}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{contactPhone}"></span>
+                        </div>
+
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="login">Email</label>
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="email" id="login" th:field="*{login}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{login}"></span>
+                        </div>
+
+                        <div class="register-form__group">
+                            <label class="register-form__label" for="password">Password</label>
+                            <input class="register-form__input" th:errorClass="register-form__input-error" type="password" id="password" th:field="*{password}" autocomplete="off">
+                            <span class="register-form__error-message" th:errors="*{password}"></span>
+                        </div>
                     </div>
 
                     <div class="register-form__button-container">

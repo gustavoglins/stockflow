@@ -1,6 +1,7 @@
 package com.stockflow.dto.companyDtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,8 +21,21 @@ public record CompanyRequestDTO(
         String legalName,
 
         @NotBlank(message = "Tax ID is required")
-        String taxId) implements Serializable {
+        String taxId,
+
+        @NotBlank(message = "Contact phone is required")
+        String contactPhone,
+
+        @NotBlank(message = "Company email is required")
+        String login,
+
+        @Size(min = 8, message = "Password must be at least 8 characters long")
+        String password) implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    public CompanyRequestDTO() {
+        this(null, "", "", "", "", "", "");
+    }
 }

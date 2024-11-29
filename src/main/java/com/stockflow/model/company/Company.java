@@ -4,6 +4,7 @@ import com.stockflow.dto.companyDtos.CompanyRequestDTO;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -33,9 +34,13 @@ public class Company implements Serializable {
     private String taxId;
 
     @Column(unique = true, nullable = false)
-    private String email;
+    private String contactPhone;
+
+    @Column(unique = true, nullable = false)
+    private String login;
 
     @Column(nullable = false)
+    @Size(min = 8)
     private String password;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -51,6 +56,9 @@ public class Company implements Serializable {
         this.name = companyRequestDTO.name();
         this.legalName = companyRequestDTO.legalName();
         this.taxId = companyRequestDTO.taxId();
+        this.contactPhone = companyRequestDTO.contactPhone();
+        this.login = companyRequestDTO.login();
+        this.password = companyRequestDTO.password();
         this.users = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -81,6 +89,30 @@ public class Company implements Serializable {
 
     public void setTaxId(String taxId) {
         this.taxId = taxId;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<User> getUsers() {

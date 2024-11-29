@@ -2,6 +2,7 @@ package com.stockflow.services;
 
 import com.stockflow.dto.companyDtos.CompanyRequestDTO;
 import com.stockflow.dto.companyDtos.CompanyResponseDTO;
+import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.company.Company;
 import com.stockflow.repositories.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,22 @@ public class CompanyServiceImpl implements CompanyService {
 
     private Boolean dataValidation(CompanyRequestDTO companyRequestDTO) {
         if (repository.existsByName(companyRequestDTO.name())) {
-            throw new RuntimeException("Name " + companyRequestDTO.name() + " already registered");
+            throw new EntityValidationException("Name " + companyRequestDTO.name() + " already registered");
         }
         if (repository.existsByLegalName(companyRequestDTO.legalName())) {
-            throw new RuntimeException("Legal name " + companyRequestDTO.legalName() + " already registered");
+            throw new EntityValidationException("Legal name " + companyRequestDTO.legalName() + " already registered");
         }
         if (repository.existsByTaxId(companyRequestDTO.taxId())) {
-            throw new RuntimeException("Tax ID " + companyRequestDTO.taxId() + " already registered");
+            throw new EntityValidationException("Tax ID " + companyRequestDTO.taxId() + " already registered");
+        }
+        if (repository.existsByContactPhone(companyRequestDTO.contactPhone())) {
+            throw new EntityValidationException("Contact phone " + companyRequestDTO.contactPhone() + " already registered");
+        }
+        if (repository.existsByLogin(companyRequestDTO.login())) {
+            throw new EntityValidationException("Email " + companyRequestDTO.login() + " already registered");
+        }
+        if (companyRequestDTO.password().length() < 8) {
+            throw new EntityValidationException("Password must be at least 8 characters long");
         }
         return true;
     }
@@ -45,23 +55,36 @@ public class CompanyServiceImpl implements CompanyService {
 
         if (!companyToUpdate.getName().equals(companyRequestDTO.name())) {
             if (repository.existsByName(companyRequestDTO.name())) {
-                throw new RuntimeException("Name " + companyRequestDTO.name() + " already registered");
+                throw new EntityValidationException("Name " + companyRequestDTO.name() + " already registered");
             }
         }
         if (!companyToUpdate.getLegalName().equals(companyRequestDTO.name())) {
             if (repository.existsByLegalName(companyRequestDTO.legalName())) {
-                throw new RuntimeException("Legal name " + companyRequestDTO.legalName() + " already registered");
+                throw new EntityValidationException("Legal name " + companyRequestDTO.legalName() + " already registered");
             }
         }
         if (!companyToUpdate.getTaxId().equals(companyRequestDTO.taxId())) {
             if (repository.existsByTaxId(companyRequestDTO.taxId())) {
-                throw new RuntimeException("Tax ID " + companyRequestDTO.taxId() + " already registered");
+                throw new EntityValidationException("Tax ID " + companyRequestDTO.taxId() + " already registered");
+            }
+        }
+        if (!companyToUpdate.getContactPhone().equals(companyRequestDTO.contactPhone())) {
+            if (repository.existsByContactPhone(companyRequestDTO.contactPhone())) {
+                throw new EntityValidationException("Contact Phone " + companyRequestDTO.contactPhone() + " already registered");
+            }
+        }
+        if (!companyToUpdate.getLogin().equals(companyRequestDTO.login())) {
+            if (repository.existsByLogin(companyRequestDTO.login())) {
+                throw new EntityValidationException("Email " + companyRequestDTO.login() + " already registered");
             }
         }
 
         companyToUpdate.setName(companyRequestDTO.name());
         companyToUpdate.setLegalName(companyRequestDTO.legalName());
         companyToUpdate.setTaxId(companyRequestDTO.taxId());
+        companyToUpdate.setContactPhone(companyRequestDTO.contactPhone());
+        companyToUpdate.setLogin(companyRequestDTO.login());
+        companyToUpdate.setPassword(companyRequestDTO.password());
 
         return new CompanyResponseDTO(repository.save(companyToUpdate));
     }

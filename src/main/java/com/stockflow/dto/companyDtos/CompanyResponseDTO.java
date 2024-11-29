@@ -13,7 +13,7 @@ import java.util.UUID;
 /**
  * DTO for {@link com.stockflow.model.company.Company}
  */
-@JsonPropertyOrder({"id", "name", "legalName", "taxId", "users", "products"})
+@JsonPropertyOrder({"id", "name", "legalName", "taxId", "contactPhone", "login", "password", "users", "products"})
 public record CompanyResponseDTO(
 
         @JsonPropertyOrder("id")
@@ -28,6 +28,15 @@ public record CompanyResponseDTO(
         @JsonPropertyOrder("taxId")
         String taxId,
 
+        @JsonPropertyOrder("contactPhone")
+        String contactPhone,
+
+        @JsonPropertyOrder("login")
+        String login,
+
+        @JsonPropertyOrder("password")
+        String password,
+
         @JsonPropertyOrder("users")
         List<User> users,
 
@@ -38,6 +47,15 @@ public record CompanyResponseDTO(
     private static final long serialVersionUID = 1L;
 
     public CompanyResponseDTO(Company company) {
-        this(company.getId(), company.getName(), company.getLegalName(), company.getTaxId(), company.getUsers(), company.getProducts());
+        this(
+                company.getId(),
+                company.getName(),
+                company.getLegalName(),
+                company.getTaxId(),
+                company.getContactPhone(),
+                company.getLogin(),
+                company.getPassword(),
+                company.getUsers(),
+                company.getProducts());
     }
 }

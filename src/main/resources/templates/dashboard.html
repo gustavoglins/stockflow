@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Gustavo Guimarães Lins de Araújo">
+    <meta name="description" content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
+    <title>Dashboard | StockFlow</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header__logo">
+            <a href="/home">StockFlow</a>
+        </div>
+        <div class="header__menu">
+            <ul class="header__menu-list">
+                <li class="header__menu-item"><a href="/home">Home</a></li>
+                <li class="header__menu-item"><a href="/about">About</a></li>
+                <li class="header__menu-item"><a href="/features">Features</a></li>
+                <li class="header__menu-item"><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <div class="hero">
+            <h1 class="hero__title">Dashboard</h1>
+        </div>
+    </div>
+    <script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

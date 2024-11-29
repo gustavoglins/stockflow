@@ -27,7 +27,9 @@
     align-items: start;
     gap: .5rem;
     margin: 0;
-    width: 48%;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
 }
 
 .register-form__label {
@@ -38,7 +40,7 @@
 .register-form__input {
     border: 2px solid black;
     border-radius: 1.2rem;
-    width: 40rem;
+    width: 50rem;
     height: 5.3rem;
     background-color: #131313;
     color: white;
@@ -53,22 +55,33 @@
 .register-form__input:focus,
 .register-form__input:hover {
     border-color: rgb(129, 210, 248);
-    box-shadow: 0 0 0 4px rgba(129, 220, 248, 0.3);
-}
-
-.register-form__input:valid {
-    border: 1px solid rgba(34, 255, 0, 0.5);
-    box-shadow: 0 0 0 2px rgba(129, 248, 145, 0.5);
+    box-shadow: 0 0 0 3px rgba(129, 220, 248, 0.3);
 }
 
 .register-form__input:valid:focus {
     border-color: rgb(129, 210, 248);
-    box-shadow: 0 0 0 4px rgba(129, 220, 248, 0.3);
+    box-shadow: 0 0 0 3px rgba(129, 220, 248, 0.3);
 }
 
-.register-form__input:invalid:focus {
-    border: 1px solid rgba(255, 0, 0, 0.8);
-    box-shadow: 0 0 0 2px rgba(248, 129, 129, 0.5);
+.register-form__input-error {
+    border: 1px solid rgba(255, 0, 0, 1);
+    box-shadow: 0 0 0 3px rgba(248, 129, 129, 0.5);
+}
+
+.register-form__error-message {
+    color: rgba(255, 0, 0, 1);
+    font-size: 16px;
+    position: absolute;
+    bottom: -2.25rem;
+    left: .2rem;
+    white-space: nowrap;
+    visibility: hidden;
+}
+
+/* Shows the error message only when there is an error */
+.register-form__input-error+.register-form__error-message {
+    visibility: visible;
+    /* Makes the message visible */
 }
 
 .register-form__button-container {

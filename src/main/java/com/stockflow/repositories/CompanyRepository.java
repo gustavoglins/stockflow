@@ -12,4 +12,6 @@ public interface CompanyRepository extends JpaRepository<Company, UUID> {
     Boolean existsByName(String name);
     Boolean existsByLegalName(String legalName);
     Boolean existsByTaxId(String taxId);
+    Boolean existsByContactPhone(String contactPhone);
+    Boolean existsByLogin(String login);
 }
