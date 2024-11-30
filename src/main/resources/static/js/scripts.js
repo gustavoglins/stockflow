@@ -1,4 +1,4 @@
-// Toggle content visibility and update styles
+// HOME | FAQ - Toggle content visibility and update styles
 function toggleFaqContent(header) {
     const content = header.nextElementSibling;
     const arrow = header.querySelector('.arrow');
@@ -15,7 +15,7 @@ function toggleFaqContent(header) {
     }
 }
 
-// Show the header when scrolling up
+// HEADER - Show the header when scrolling up
 let lastScrollTop = 0; // Guarda a última posição do scroll
 
 window.addEventListener('scroll', function () {
@@ -33,3 +33,12 @@ window.addEventListener('scroll', function () {
     }
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Para não ter valores negativos
 });
+
+// DASHBOARD, INVENTORY | DATE - Return the actual date
+
+const currentDate = new Date();
+
+const options = { year: 'numeric', month: 'long', day: 'numeric' };
+const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+document.querySelector('.main-content__date').textContent = formattedDate;
