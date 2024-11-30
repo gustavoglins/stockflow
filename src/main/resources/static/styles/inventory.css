@@ -1,0 +1,25 @@
+.product-list {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border-radius: 2rem;
+    height: 100%;
+    padding-bottom: 4rem;
+    overflow-y: auto;
+    box-shadow: 0px 0px 48px -40px rgba(0,0,0,0.75);
+}
+
+.product-list__header {
+    display: flex;
+    gap: 2rem;
+    background-color: #F9FAFB;
+    padding: 2rem;
+    border-radius: 2rem 2rem 0 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-list__header-item {
+    min-width: 12rem;
+    text-align: center;
+}
