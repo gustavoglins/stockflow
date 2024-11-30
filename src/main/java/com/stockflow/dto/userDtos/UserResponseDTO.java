@@ -3,17 +3,19 @@ package com.stockflow.dto.userDtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.stockflow.model.company.Company;
+import com.stockflow.model.product.Product;
 import com.stockflow.model.team.Team;
 import com.stockflow.model.user.User;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * DTO for {@link User}
  */
-@JsonPropertyOrder({"id", "name", "login", "password", "company", "team", "role"})
+@JsonPropertyOrder({"id", "name", "login", "password", "productList"})
 public record UserResponseDTO(
 
         @JsonProperty("id")
@@ -26,12 +28,15 @@ public record UserResponseDTO(
         String login,
 
         @JsonProperty("password")
-        String password) implements Serializable {
+        String password,
+
+        @JsonProperty("productList")
+        List<Product> productList) implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     public UserResponseDTO(User user) {
-        this(user.getId(), user.getName(), user.getLogin(), user.getPassword());
+        this(user.getId(), user.getName(), user.getLogin(), user.getPassword(), user.getProductList());
     }
 }
