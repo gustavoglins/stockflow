@@ -1,11 +1,14 @@
 package com.stockflow.model.user;
 
 import com.stockflow.dto.userDtos.UserRequestDTO;
+import com.stockflow.model.product.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,6 +33,9 @@ public class User implements Serializable {
     @Size(min = 8)
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> productList;
+
     public User() {
     }
 
@@ -37,6 +43,7 @@ public class User implements Serializable {
         this.name = userRequestDTO.name();
         this.login = userRequestDTO.login();
         this.password = userRequestDTO.password();
+        this.productList = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -65,6 +72,10 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.stockflow.model.product;
 import com.stockflow.dto.productDtos.ProductRequestDTO;
 import com.stockflow.model.company.Company;
 import com.stockflow.model.team.Team;
+import com.stockflow.model.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 
@@ -49,6 +50,10 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Product() {
     }

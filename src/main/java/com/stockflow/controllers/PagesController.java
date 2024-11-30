@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PagesController {
 
 
-// -------------------- Home Mapping --------------------
+    // -------------------- Home Mapping --------------------
     @GetMapping
-    public String getHomePage(){
+    public String getHomePage() {
         return "redirect:/home";
     }
 
@@ -23,8 +23,7 @@ public class PagesController {
     }
 
 
-
-// -------------------- Signup Mappings --------------------
+    // -------------------- Signup Mappings --------------------
     @GetMapping("/signup")
     public String signupPage() {
         return "signup";
@@ -49,18 +48,31 @@ public class PagesController {
     }
 
 
-
-// -------------------- Login Mapping --------------------
+    // -------------------- Login Mapping --------------------
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
 
-
-// -------------------- Dashboard Mapping --------------------
+    // -------------------- Menu Mappings --------------------
     @GetMapping("/dashboard")
-    public String dashboardPage(){
+    public String dashboardPage() {
         return "dashboard";
+    }
+
+    @GetMapping("/inventory")
+    public String inventoryPage() {
+        return "inventory";
+    }
+
+    @GetMapping("/help-and-support")
+    public String helpAndSupportPage() {
+        return "help-and-support";
+    }
+
+    @GetMapping("/settings")
+    public String settingsPage() {
+        return "settings";
     }
 }
