@@ -1,0 +1,106 @@
+:root {
+    --primary-color: #e2f5fe;
+    --second-color: #7aaec6;
+    --sub-color: #E8F0FE;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 auto;
+}
+
+.register-form__content {
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.register-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.register-form__input,
+.register-form-btn {
+    width: 100%;
+    max-width: 50rem;
+}
+
+.register-form__label {
+    font-size: 2.4rem;
+    font-weight: 400;
+}
+
+.register-form__input {
+    border: 2px solid black;
+    border-radius: 1.2rem;
+    width: 100%;
+    height: 5.3rem;
+    background-color: #131313;
+    color: white;
+    font-size: 2rem;
+    padding: 0 0 0 1.5rem;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    transition: .5s ease;
+}
+
+.register-form__input:focus,
+.register-form__input:hover {
+    border-color: rgb(129, 210, 248);
+    box-shadow: 0 0 0 3px rgba(129, 220, 248, 0.3);
+}
+
+.register-form__input:valid:focus {
+    border-color: rgb(129, 210, 248);
+    box-shadow: 0 0 0 3px rgba(129, 220, 248, 0.3);
+}
+
+.register-form__input-error {
+    border: 1px solid rgba(255, 0, 0, 1);
+    box-shadow: 0 0 0 3px rgba(248, 129, 129, 0.5);
+}
+
+.register-form__error-message {
+    color: rgba(255, 0, 0, 1);
+    font-size: 16px;
+    /* position: absolute; */
+    bottom: -2.25rem;
+    left: .2rem;
+    white-space: nowrap;
+    visibility: hidden;
+}
+
+/* Shows the error message only when there is an error */
+.register-form__input-error + .register-form__error-message {
+    visibility: visible;
+}
+
+.register-form__button-container {
+    width: 100%;
+}
+
+.register-form-btn {
+    width: 100%;
+    border-radius: 1.2rem;
+    border: 3px solid transparent;
+    transition: .5s ease;
+    font-family: 'Inter';
+    font-weight: 500;
+    margin: 3rem 0 0 0;
+}
+
+.register-form-btn:hover {
+    transform: none;
+    border-color: rgb(129, 210, 248);
+    box-shadow: 0 0 0 6px rgba(129, 220, 248, 0.3);
+}
