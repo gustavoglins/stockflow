@@ -1,8 +1,9 @@
 package com.stockflow.controllers;
 
-import com.stockflow.dto.user.UserUpdateRequestDTO;
-import com.stockflow.dto.user.UserResponseDTO;
-import com.stockflow.dto.user.UserSignupRequestDTO;
+import com.stockflow.dto.user.UserDetailsResponseDTO;
+import com.stockflow.dto.user.update.UserUpdateRequestDTO;
+import com.stockflow.dto.user.update.UserUpdateResponseDTO;
+import com.stockflow.dto.user.signup.UserSignupRequestDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.services.UserService;
 import jakarta.validation.Valid;
@@ -46,17 +47,17 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userRequestDTO) {
+    public ResponseEntity<UserUpdateResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userRequestDTO) {
         return ResponseEntity.ok(service.update(userRequestDTO));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<UserDetailsResponseDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> findAll() {
+    public ResponseEntity<List<UserDetailsResponseDTO>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 

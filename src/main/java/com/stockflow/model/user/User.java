@@ -1,6 +1,6 @@
 package com.stockflow.model.user;
 
-import com.stockflow.dto.user.UserSignupRequestDTO;
+import com.stockflow.dto.user.signup.UserSignupRequestDTO;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.role.Role;
 import jakarta.persistence.*;

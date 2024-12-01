@@ -1,4 +1,4 @@
-package com.stockflow.dto.user;
+package com.stockflow.dto.user.login;
 
 import jakarta.validation.constraints.NotBlank;
 

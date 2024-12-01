@@ -1,9 +1,10 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.user.UserUpdateRequestDTO;
-import com.stockflow.dto.user.UserResponseDTO;
-import com.stockflow.dto.user.UserSignupRequestDTO;
-import com.stockflow.dto.user.UserSignupResponseDTO;
+import com.stockflow.dto.user.UserDetailsResponseDTO;
+import com.stockflow.dto.user.update.UserUpdateRequestDTO;
+import com.stockflow.dto.user.update.UserUpdateResponseDTO;
+import com.stockflow.dto.user.signup.UserSignupRequestDTO;
+import com.stockflow.dto.user.signup.UserSignupResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.user.User;
 import com.stockflow.repositories.UserRepository;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO update(UserUpdateRequestDTO userRequestDTO) {
+    public UserUpdateResponseDTO update(UserUpdateRequestDTO userRequestDTO) {
         User userToUpdate = repository.findById(userRequestDTO.id())
                 .orElseThrow(() -> new RuntimeException("User with ID: " + userRequestDTO.id() + " not found."));
 
@@ -68,21 +69,21 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setLogin(userRequestDTO.login());
         userToUpdate.setPassword(userRequestDTO.password());
 
-        return new UserResponseDTO(repository.save(userToUpdate));
+        return new UserUpdateResponseDTO(repository.save(userToUpdate));
     }
 
     @Override
-    public UserResponseDTO findById(UUID id) {
+    public UserDetailsResponseDTO findById(UUID id) {
         User existingUser = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User with ID: " + id + " not found"));
 
-        return new UserResponseDTO(repository.save(existingUser));
+        return new UserDetailsResponseDTO(repository.save(existingUser));
     }
 
     @Override
-    public List<UserResponseDTO> findAll() {
+    public List<UserDetailsResponseDTO> findAll() {
         return repository.findAll().stream()
-                .map(UserResponseDTO::new)
+                .map(UserDetailsResponseDTO::new)
                 .toList();
     }
 

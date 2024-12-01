@@ -1,4 +1,4 @@
-package com.stockflow.dto.user;
+package com.stockflow.dto.user.login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

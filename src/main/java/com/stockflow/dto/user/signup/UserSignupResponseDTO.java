@@ -1,8 +1,9 @@
-package com.stockflow.dto.user;
+package com.stockflow.dto.user.signup;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.stockflow.model.product.Product;
+import com.stockflow.model.role.Role;
 import com.stockflow.model.user.User;
 
 import java.io.Serial;
@@ -10,11 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * DTO for {@link User}
- */
 @JsonPropertyOrder({"id", "name", "login", "password", "productList"})
-public record UserResponseDTO(
+public record UserSignupResponseDTO(
 
         @JsonProperty("id")
         UUID id,
@@ -34,7 +32,7 @@ public record UserResponseDTO(
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public UserResponseDTO(User user) {
+    public UserSignupResponseDTO(User user) {
         this(user.getId(), user.getName(), user.getLogin(), user.getPassword(), user.getProductList());
     }
 }

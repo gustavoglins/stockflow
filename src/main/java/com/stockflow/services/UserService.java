@@ -1,9 +1,10 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.user.UserUpdateRequestDTO;
-import com.stockflow.dto.user.UserResponseDTO;
-import com.stockflow.dto.user.UserSignupRequestDTO;
-import com.stockflow.dto.user.UserSignupResponseDTO;
+import com.stockflow.dto.user.UserDetailsResponseDTO;
+import com.stockflow.dto.user.update.UserUpdateRequestDTO;
+import com.stockflow.dto.user.update.UserUpdateResponseDTO;
+import com.stockflow.dto.user.signup.UserSignupRequestDTO;
+import com.stockflow.dto.user.signup.UserSignupResponseDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,11 +13,11 @@ public interface UserService {
 
     UserSignupResponseDTO signup(UserSignupRequestDTO userSignupRequestDTO);
 
-    UserResponseDTO update(UserUpdateRequestDTO userRequestDTO);
+    UserUpdateResponseDTO update(UserUpdateRequestDTO userUpdateRequestDTO);
 
-    UserResponseDTO findById(UUID id);
+    UserDetailsResponseDTO findById(UUID id);
 
-    List<UserResponseDTO> findAll();
+    List<UserDetailsResponseDTO> findAll();
 
     void delete(UUID id);
 }

@@ -1,4 +1,4 @@
-package com.stockflow.dto.user;
+package com.stockflow.dto.user.update;
 
 import com.stockflow.model.user.User;
 import jakarta.validation.constraints.NotBlank;
