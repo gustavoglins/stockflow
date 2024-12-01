@@ -1,7 +1,8 @@
 package com.stockflow.controllers;
 
-import com.stockflow.dto.user.UserRequestDTO;
+import com.stockflow.dto.user.UserUpdateRequestDTO;
 import com.stockflow.dto.user.UserResponseDTO;
+import com.stockflow.dto.user.UserSignupRequestDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.services.UserService;
 import jakarta.validation.Valid;
@@ -23,10 +24,10 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping
-    public String create(@ModelAttribute @Valid UserRequestDTO userRequestDTO, BindingResult result) {
+    @PostMapping("/signup")
+    public String signup(@ModelAttribute @Valid UserSignupRequestDTO userSignupRequestDTO, BindingResult result) {
         try {
-            service.create(userRequestDTO);
+            service.signup(userSignupRequestDTO);
         } catch (EntityValidationException exception) {
             if (exception.getMessage().contains("Name")) {
                 result.rejectValue("name", null, exception.getMessage());
@@ -37,7 +38,7 @@ public class UserController {
             }
         }
 
-        if (result.hasErrors()) {
+        if(result.hasErrors()){
             return "signup-personal";
         }
 
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<UserResponseDTO> update(@RequestBody @Valid UserRequestDTO userRequestDTO) {
+    public ResponseEntity<UserResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userRequestDTO) {
         return ResponseEntity.ok(service.update(userRequestDTO));
     }
 

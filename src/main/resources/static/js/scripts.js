@@ -15,6 +15,8 @@ function toggleFaqContent(header) {
     }
 }
 
+
+
 // HEADER - Show the header when scrolling up
 let lastScrollTop = 0; // Guarda a última posição do scroll
 
@@ -33,6 +35,8 @@ window.addEventListener('scroll', function () {
     }
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Para não ter valores negativos
 });
+
+
 
 // DASHBOARD, INVENTORY | DATE - Return the actual date
 

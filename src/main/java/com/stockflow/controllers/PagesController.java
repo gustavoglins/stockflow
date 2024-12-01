@@ -2,7 +2,7 @@ package com.stockflow.controllers;
 
 import com.stockflow.dto.company.CompanyRequestDTO;
 import com.stockflow.dto.team.TeamRequestDTO;
-import com.stockflow.dto.user.UserRequestDTO;
+import com.stockflow.dto.user.UserSignupRequestDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +29,10 @@ public class PagesController {
         return "signup";
     }
 
-    @GetMapping("/signup/company")
-    public String signupCompanyPage(Model model) {
-        model.addAttribute("companyRequestDTO", new CompanyRequestDTO());
-        return "signup-company";
+    @GetMapping("/signup/personal")
+    public String signupPersonalPage(Model model) {
+        model.addAttribute("userSignupRequestDTO", new UserSignupRequestDTO());
+        return "signup-personal";
     }
 
     @GetMapping("/signup/team")
@@ -41,10 +41,10 @@ public class PagesController {
         return "signup-team";
     }
 
-    @GetMapping("/signup/personal")
-    public String signupPersonalPage(Model model) {
-        model.addAttribute("userRequestDTO", new UserRequestDTO());
-        return "signup-personal";
+    @GetMapping("/signup/company")
+    public String signupCompanyPage(Model model) {
+        model.addAttribute("companyRequestDTO", new CompanyRequestDTO());
+        return "signup-company";
     }
 
 

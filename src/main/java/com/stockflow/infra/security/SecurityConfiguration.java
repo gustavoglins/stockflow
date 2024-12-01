@@ -29,23 +29,50 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll() // Swagger Doc Page
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll() // Swagger UI Page
-                        .requestMatchers(HttpMethod.POST, "/api/auth/signup").permitAll() // Signup Page
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll() // Login Page
-                        .anyRequest().authenticated()
+                        .requestMatchers( // Swagger Endpoints
+                                HttpMethod.GET,
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**"
+                        ).permitAll()
+                        .requestMatchers( // Public resources
+                                "/static/**",
+                                "/js/**",
+                                "/images/**",
+                                "/styles/**"
+                        ).permitAll()
+                        .requestMatchers( // Public HTML Pages
+                                HttpMethod.GET,
+                                "/",
+                                "/home",
+                                "/signup",
+                                "/signup/company",
+                                "/signup/team",
+                                "/signup/personal",
+                                "/login",
+                                "/dashboard",
+                                "/inventory",
+                                "/help-and-support",
+                                "/settings"
+                        ).permitAll()
+                        .requestMatchers( // Signup Endpoints
+                                HttpMethod.POST,
+                                "/api/user/signup",
+                                "/api/team/signup",
+                                "/api/company/signup"
+                        ).permitAll()
+                        .anyRequest().authenticated() // Any other route
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

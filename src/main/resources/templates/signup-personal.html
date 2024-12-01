@@ -7,7 +7,7 @@
     <meta name="description"
         content="Simplify inventory management with StockFlow - your secure and intuitive solution to streamline operations.">
     <title>Sign Up | StockFlow</title>
-    <link th:href="@{/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/global.css}" rel="stylesheet">
     <link th:href="@{/styles/signup.css}" rel="stylesheet">
     <link th:href="@{/styles/signup-personal.css}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -40,7 +40,7 @@
         </div>
         <div class="register-card-container">
             <div class="register-form-container">
-                <form class="register-form" th:action="@{/api/user}" th:object="${userRequestDTO}" method="post">
+                <form class="register-form" th:action="@{/api/user/signup}" th:object="${userSignupRequestDTO}" method="post">
                     <div class="register-form__content">
                         <div class="register-form__group">
                             <label class="register-form__label" for="name">Name</label>
@@ -51,7 +51,7 @@
                         <div class="register-form__group">
                             <label class="register-form__label" for="login">Email</label>
                             <input class="register-form__input" th:errorClass="register-form__input-error" type="email" id="login" th:field="*{login}" autocomplete="off">
-                            <span class="register-form__error-message" th:errors="*{login}"></span>
+                            <span class="register-form__error-message" th:errors="*{login}"> </span>
                         </div>
 
                         <div class="register-form__group">

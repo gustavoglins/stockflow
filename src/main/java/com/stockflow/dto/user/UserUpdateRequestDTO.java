@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * DTO for {@link User}
  */
-public record UserRequestDTO(
+public record UserUpdateRequestDTO(
 
         UUID id,
 
@@ -27,7 +27,7 @@ public record UserRequestDTO(
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public UserRequestDTO() {
+    public UserUpdateRequestDTO() {
         this(null, "", "", "");
     }
 }

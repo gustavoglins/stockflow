@@ -1,6 +1,5 @@
 package com.stockflow.model.user;
 
-import com.stockflow.dto.user.UserRequestDTO;
 import com.stockflow.dto.user.UserSignupRequestDTO;
 import com.stockflow.model.product.Product;
 import com.stockflow.model.role.Role;
@@ -48,14 +47,7 @@ public class User implements Serializable, UserDetails {
         this.login = userSignupRequestDTO.login();
         this.password = userSignupRequestDTO.password();
         this.role = Role.COMMON_USER;
-    }
-
-    public User(UserRequestDTO userRequestDTO) {
-        this.name = userRequestDTO.name();
-        this.login = userRequestDTO.login();
-        this.password = userRequestDTO.password();
         this.productList = new ArrayList<>();
-        //TODO faltando role
     }
 
     public UUID getId() {

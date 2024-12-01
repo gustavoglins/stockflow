@@ -1,10 +1,13 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.user.UserRequestDTO;
+import com.stockflow.dto.user.UserUpdateRequestDTO;
 import com.stockflow.dto.user.UserResponseDTO;
+import com.stockflow.dto.user.UserSignupRequestDTO;
+import com.stockflow.dto.user.UserSignupResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.user.User;
 import com.stockflow.repositories.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,33 +18,39 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    private Boolean dataValidation(UserRequestDTO userRequestDTO) {
-        if (repository.existsByName(userRequestDTO.name())) {
-            throw new EntityValidationException("Name " + userRequestDTO.name() + " already exists");
+    private Boolean dataValidation(UserSignupRequestDTO userSignupRequestDTO) {
+        if (repository.existsByName(userSignupRequestDTO.name())) {
+            throw new EntityValidationException("Name " + userSignupRequestDTO.name() + " already exists");
         }
-        if (repository.existsByLogin(userRequestDTO.login())) {
-            throw new EntityValidationException("Email " + userRequestDTO.login() + " already exists");
+        if (repository.existsByLogin(userSignupRequestDTO.login())) {
+            throw new EntityValidationException("Email " + userSignupRequestDTO.login() + " already exists");
         }
-        if (userRequestDTO.password().length() < 8) {
+        if (userSignupRequestDTO.password().length() < 8) {
             throw new EntityValidationException("Password must be at least 8 characters long");
         }
         return true;
     }
 
     @Override
-    public UserResponseDTO create(UserRequestDTO userRequestDTO) {
-        if (dataValidation(userRequestDTO)) {
-            return new UserResponseDTO(repository.save(new User(userRequestDTO)));
-        } else throw new RuntimeException("Unexpected error. User not created");
+    public UserSignupResponseDTO signup(UserSignupRequestDTO userSignupRequestDTO) {
+        if(dataValidation(userSignupRequestDTO)) {
+            User newUser = new User(userSignupRequestDTO);
+            newUser.setPassword(passwordEncoder.encode(userSignupRequestDTO.password()));
+            return new UserSignupResponseDTO(repository.save(newUser));
+        } else {
+            throw new RuntimeException("Unexpected error! User not created");
+        }
     }
 
     @Override
-    public UserResponseDTO update(UserRequestDTO userRequestDTO) {
+    public UserResponseDTO update(UserUpdateRequestDTO userRequestDTO) {
         User userToUpdate = repository.findById(userRequestDTO.id())
                 .orElseThrow(() -> new RuntimeException("User with ID: " + userRequestDTO.id() + " not found."));
 
