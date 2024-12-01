@@ -1,12 +1,14 @@
 package com.stockflow.model.user;
 
-import com.stockflow.dto.loginDtos.LoginRequestDTO;
-import com.stockflow.dto.userDtos.UserRequestDTO;
+import com.stockflow.dto.user.UserRequestDTO;
+import com.stockflow.dto.user.UserSignupRequestDTO;
 import com.stockflow.model.product.Product;
-import com.stockflow.model.roles.Role;
+import com.stockflow.model.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "tb_users")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -33,12 +35,7 @@ public class User implements Serializable {
     @Size(min = 8)
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "tb_user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private Set<Role> roles;
-
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> productList;
@@ -46,11 +43,19 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(UserSignupRequestDTO userSignupRequestDTO){
+        this.name = userSignupRequestDTO.name();
+        this.login = userSignupRequestDTO.login();
+        this.password = userSignupRequestDTO.password();
+        this.role = Role.COMMON_USER;
+    }
+
     public User(UserRequestDTO userRequestDTO) {
         this.name = userRequestDTO.name();
         this.login = userRequestDTO.login();
         this.password = userRequestDTO.password();
         this.productList = new ArrayList<>();
+        //TODO faltando role
     }
 
     public UUID getId() {
@@ -85,22 +90,69 @@ public class User implements Serializable {
         return productList;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Always add the role "USER", as all users have this role
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        // Add the specific roles depending on the user's role
+        switch (this.role) {
+            case ADMIN:
+                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                break;
+            case COMMON_USER:
+                authorities.add(new SimpleGrantedAuthority("ROLE_COMMON_USER"));
+                break;
+            case COMPANY_OWNER:
+                authorities.add(new SimpleGrantedAuthority("ROLE_COMPANY_OWNER"));
+                break;
+            case COMPANY_EMPLOYEE:
+                authorities.add(new SimpleGrantedAuthority("ROLE_COMPANY_EMPLOYEE"));
+                break;
+            case TEAM_LEADER:
+                authorities.add(new SimpleGrantedAuthority("ROLE_TEAM_LEADER"));
+                break;
+            case TEAM_COLLABORATOR:
+                authorities.add(new SimpleGrantedAuthority("ROLE_TEAM_COLLABORATOR"));
+                break;
+        }
+
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
@@ -113,9 +165,5 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    public boolean isLoginCorrect(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(loginRequestDTO.password(), this.password);
     }
 }

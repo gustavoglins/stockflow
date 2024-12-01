@@ -1,4 +1,4 @@
-package com.stockflow.dto.companyDtos;
+package com.stockflow.dto.company;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

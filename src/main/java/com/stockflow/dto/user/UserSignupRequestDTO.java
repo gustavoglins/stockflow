@@ -1,25 +1,17 @@
-package com.stockflow.dto.teamDtos;
+package com.stockflow.dto.user;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
 
-/**
- * DTO for {@link com.stockflow.model.team.Team}
- */
-public record TeamRequestDTO(
-
-        UUID id,
+public record UserSignupRequestDTO(
 
         @NotBlank(message = "Name is required")
         String name,
 
-        @NotBlank(message = "Email is required")
-        @Email(message = "Email is required")
+        @NotBlank(message = "Login is required")
         String login,
 
         @Size(min = 8, message = "Password must be at least 8 characters long")
@@ -28,7 +20,7 @@ public record TeamRequestDTO(
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public TeamRequestDTO() {
-        this(null, "", "", "");
+    public UserSignupRequestDTO() {
+        this("", "", "");
     }
 }

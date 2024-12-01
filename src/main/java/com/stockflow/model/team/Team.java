@@ -1,6 +1,6 @@
 package com.stockflow.model.team;
 
-import com.stockflow.dto.teamDtos.TeamRequestDTO;
+import com.stockflow.dto.team.TeamRequestDTO;
 import com.stockflow.model.collaborator.Collaborator;
 import com.stockflow.model.product.Product;
 import jakarta.persistence.*;

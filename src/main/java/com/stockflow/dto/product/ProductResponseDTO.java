@@ -1,4 +1,4 @@
-package com.stockflow.dto.productDtos;
+package com.stockflow.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

@@ -1,9 +1,8 @@
 package com.stockflow.model.company;
 
-import com.stockflow.dto.companyDtos.CompanyRequestDTO;
+import com.stockflow.dto.company.CompanyRequestDTO;
 import com.stockflow.model.employee.Employee;
 import com.stockflow.model.product.Product;
-import com.stockflow.model.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 

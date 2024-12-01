@@ -1,7 +1,7 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.teamDtos.TeamRequestDTO;
-import com.stockflow.dto.teamDtos.TeamResponseDTO;
+import com.stockflow.dto.team.TeamRequestDTO;
+import com.stockflow.dto.team.TeamResponseDTO;
 
 import java.util.List;
 import java.util.UUID;

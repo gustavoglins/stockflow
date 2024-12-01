@@ -1,10 +1,9 @@
-package com.stockflow.dto.companyDtos;
+package com.stockflow.dto.company;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.stockflow.model.company.Company;
 import com.stockflow.model.employee.Employee;
 import com.stockflow.model.product.Product;
-import com.stockflow.model.user.User;
 
 import java.io.Serial;
 import java.io.Serializable;

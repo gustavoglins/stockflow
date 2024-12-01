@@ -1,7 +1,7 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.productDtos.ProductRequestDTO;
-import com.stockflow.dto.productDtos.ProductResponseDTO;
+import com.stockflow.dto.product.ProductRequestDTO;
+import com.stockflow.dto.product.ProductResponseDTO;
 import com.stockflow.model.product.Product;
 import com.stockflow.repositories.ProductRepository;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.stockflow.model.product;
 
-import com.stockflow.dto.productDtos.ProductRequestDTO;
+import com.stockflow.dto.product.ProductRequestDTO;
 import com.stockflow.model.company.Company;
 import com.stockflow.model.team.Team;
 import com.stockflow.model.user.User;

@@ -1,11 +1,11 @@
-package com.stockflow.dto.loginDtos;
+package com.stockflow.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-public record LoginRequestDTO(
+public record UserLoginRequestDTO(
 
         @NotBlank(message = "Login is required")
         String login,
@@ -15,4 +15,8 @@ public record LoginRequestDTO(
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    public UserLoginRequestDTO() {
+        this("", "");
+    }
 }

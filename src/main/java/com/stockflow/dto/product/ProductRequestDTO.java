@@ -1,4 +1,4 @@
-package com.stockflow.dto.productDtos;
+package com.stockflow.dto.product;
 
 import com.stockflow.model.company.Company;
 import com.stockflow.model.team.Team;

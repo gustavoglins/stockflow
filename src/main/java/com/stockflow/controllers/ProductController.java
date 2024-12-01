@@ -1,7 +1,7 @@
 package com.stockflow.controllers;
 
-import com.stockflow.dto.productDtos.ProductRequestDTO;
-import com.stockflow.dto.productDtos.ProductResponseDTO;
+import com.stockflow.dto.product.ProductRequestDTO;
+import com.stockflow.dto.product.ProductResponseDTO;
 import com.stockflow.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.stockflow.controllers;
 
-import com.stockflow.dto.companyDtos.CompanyRequestDTO;
-import com.stockflow.dto.companyDtos.CompanyResponseDTO;
+import com.stockflow.dto.company.CompanyRequestDTO;
+import com.stockflow.dto.company.CompanyResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.services.CompanyService;
 import jakarta.validation.Valid;

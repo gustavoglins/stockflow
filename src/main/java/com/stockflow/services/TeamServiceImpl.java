@@ -1,7 +1,7 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.teamDtos.TeamRequestDTO;
-import com.stockflow.dto.teamDtos.TeamResponseDTO;
+import com.stockflow.dto.team.TeamRequestDTO;
+import com.stockflow.dto.team.TeamResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.team.Team;
 import com.stockflow.repositories.TeamRepository;

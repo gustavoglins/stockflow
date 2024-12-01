@@ -1,7 +1,7 @@
 package com.stockflow.services;
 
-import com.stockflow.dto.userDtos.UserRequestDTO;
-import com.stockflow.dto.userDtos.UserResponseDTO;
+import com.stockflow.dto.user.UserRequestDTO;
+import com.stockflow.dto.user.UserResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.model.user.User;
 import com.stockflow.repositories.UserRepository;

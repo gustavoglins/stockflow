@@ -1,7 +1,7 @@
 package com.stockflow.controllers;
 
-import com.stockflow.dto.teamDtos.TeamRequestDTO;
-import com.stockflow.dto.teamDtos.TeamResponseDTO;
+import com.stockflow.dto.team.TeamRequestDTO;
+import com.stockflow.dto.team.TeamResponseDTO;
 import com.stockflow.exceptions.EntityValidationException;
 import com.stockflow.services.TeamService;
 import jakarta.validation.Valid;
