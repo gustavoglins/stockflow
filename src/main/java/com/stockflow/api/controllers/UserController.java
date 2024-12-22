@@ -1,7 +1,7 @@
 package com.stockflow.api.controllers;
 
-import com.stockflow.api.requests.UserUpdateRequestDTO;
-import com.stockflow.api.responses.UserDetailsResponseDTO;
+import com.stockflow.api.requests.user.UserUpdateRequestDTO;
+import com.stockflow.api.responses.user.UserDetailsResponseDTO;
 import com.stockflow.domain.services.interfaces.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

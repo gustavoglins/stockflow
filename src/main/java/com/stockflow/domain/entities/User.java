@@ -1,6 +1,6 @@
 package com.stockflow.domain.entities;
 
-import com.stockflow.api.requests.UserSignupRequestDTO;
+import com.stockflow.api.requests.user.UserSignupRequestDTO;
 import com.stockflow.shared.enums.AuthRoles;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

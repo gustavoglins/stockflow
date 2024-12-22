@@ -1,8 +1,8 @@
 package com.stockflow.domain.services.impl;
 
-import com.stockflow.api.requests.UserSignupRequestDTO;
-import com.stockflow.api.requests.UserUpdateRequestDTO;
-import com.stockflow.api.responses.UserDetailsResponseDTO;
+import com.stockflow.api.requests.user.UserSignupRequestDTO;
+import com.stockflow.api.requests.user.UserUpdateRequestDTO;
+import com.stockflow.api.responses.user.UserDetailsResponseDTO;
 import com.stockflow.domain.entities.User;
 import com.stockflow.domain.repositories.UserRepository;
 import com.stockflow.domain.services.interfaces.UserService;

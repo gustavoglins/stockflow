@@ -1,4 +1,4 @@
-package com.stockflow.api.responses;
+package com.stockflow.api.responses.user;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

@@ -1,8 +1,8 @@
 package com.stockflow.domain.services.impl;
 
-import com.stockflow.api.requests.UserLoginRequestDTO;
-import com.stockflow.api.requests.UserSignupRequestDTO;
-import com.stockflow.api.responses.UserAuthResponseDTO;
+import com.stockflow.api.requests.user.UserLoginRequestDTO;
+import com.stockflow.api.requests.user.UserSignupRequestDTO;
+import com.stockflow.api.responses.user.UserAuthResponseDTO;
 import com.stockflow.domain.entities.User;
 import com.stockflow.domain.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +33,9 @@ public class AuthenticationService {
         newUser.setPassword(encryptedPassword);
         userRepository.save(newUser);
 
-        return new UserAuthResponseDTO(newUser.getLogin(), null); //TODO: Just return login for now
+        var token = tokenService.generateToken(newUser);
+
+        return new UserAuthResponseDTO(newUser.getLogin(), token);
     }
 
     public UserAuthResponseDTO userLogin(UserLoginRequestDTO userLoginRequestDTO) {

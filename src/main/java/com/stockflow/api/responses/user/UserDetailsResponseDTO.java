@@ -1,17 +1,15 @@
-package com.stockflow.api.responses;
+package com.stockflow.api.responses.user;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.stockflow.domain.entities.Product;
 import com.stockflow.domain.entities.User;
 import com.stockflow.shared.enums.AuthRoles;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
  * DTO for {@link User}
  */
-@JsonPropertyOrder({"id", "name", "login", "password", "role", "productList"})
+@JsonPropertyOrder({"id", "name", "login", "role"})
 public record UserDetailsResponseDTO(
 
         UUID id,
@@ -20,11 +18,7 @@ public record UserDetailsResponseDTO(
 
         String login,
 
-        String password,
-
-        AuthRoles role,
-
-        List<Product> productList
+        AuthRoles role
 ) {
 
     public UserDetailsResponseDTO(User user) {
@@ -32,9 +26,7 @@ public record UserDetailsResponseDTO(
                 user.getId(),
                 user.getName(),
                 user.getLogin(),
-                user.getPassword(),
-                user.getRole(),
-                user.getProductList()
+                user.getRole()
         );
     }
 }
