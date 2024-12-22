@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
         version = "1.0.0",
         description = "Documentation for the StockFlow API, an inventory management platform with features for managing products in real time. The API provides endpoints for user and product management.",
         termsOfService = "https://github.com/gustavoglins/stockflow/blob/master/TERMS.md",
-        contact = @Contact(name = "Suporte Técnico", email = "gustavoglins05@gmail.com", url = "mailto:gustavoglins05@gmal.com"),
+        contact = @Contact(email = "gustavoglins05@gmail.com"),
         license = @License(name = "MIT License", url = "https://github.com/gustavoglins/stockflow/blob/master/LICENSE.md")
 ))
 public class OpenAPIConfiguration {

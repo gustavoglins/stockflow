@@ -30,6 +30,9 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-ui/index.html").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/signup/user").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login/user").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/user").permitAll()
