@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.stockflow</groupId>
 	<artifactId>stockflow</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>StockFlow</name>
 	<description>StockFlow API</description>
 	<url/>
