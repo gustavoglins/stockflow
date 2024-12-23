@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private final AuthenticationService authenticationService;
 
     public AuthenticationController(AuthenticationService authenticationService) {
@@ -50,6 +53,7 @@ public class AuthenticationController {
     })
     @PostMapping("/signup/user")
     public ResponseEntity<UserAuthResponseDTO> userSignup(@RequestBody @Valid UserSignupRequestDTO userSignupRequestDTO) {
+        logger.info("Received request to signup a new user");
         UserAuthResponseDTO response = authenticationService.userSignup(userSignupRequestDTO);
         return ResponseEntity.ok(response);
     }
@@ -76,6 +80,7 @@ public class AuthenticationController {
     })
     @PostMapping("/login/user")
     public ResponseEntity<UserAuthResponseDTO> userLogin(@RequestBody @Valid UserLoginRequestDTO userLoginRequestDTO) {
+        logger.info("Received request to login an user");
         UserAuthResponseDTO response = authenticationService.userLogin(userLoginRequestDTO);
         return ResponseEntity.ok(response);
     }

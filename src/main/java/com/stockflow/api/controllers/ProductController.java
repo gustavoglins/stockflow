@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService service;
 
     public ProductController(ProductService service) {
@@ -46,6 +49,7 @@ public class ProductController {
     })
     @PostMapping
     public ResponseEntity<ProductDetailsResponseDTO> create(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
+        logger.info("Received request to create a new product");
         return ResponseEntity.ok(service.create(productRequestDTO));
     }
 
@@ -69,6 +73,7 @@ public class ProductController {
     })
     @PutMapping
     public ResponseEntity<ProductDetailsResponseDTO> update(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
+        logger.info("Received request to update an existing product");
         return ResponseEntity.ok(service.update(productRequestDTO));
     }
 
@@ -92,6 +97,7 @@ public class ProductController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailsResponseDTO> findById(@PathVariable Long id) {
+        logger.info("Received request to find product by ID");
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -113,6 +119,7 @@ public class ProductController {
     })
     @GetMapping
     public ResponseEntity<List<ProductDetailsResponseDTO>> findAll() {
+        logger.info("Received request to find all products");
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -130,6 +137,7 @@ public class ProductController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        logger.info("Received request to delete product by ID");
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

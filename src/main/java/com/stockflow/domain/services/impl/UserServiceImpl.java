@@ -8,6 +8,8 @@ import com.stockflow.domain.repositories.UserRepository;
 import com.stockflow.domain.services.interfaces.UserService;
 import com.stockflow.exceptions.DataAlreadyInUseException;
 import com.stockflow.exceptions.DataNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
@@ -28,53 +31,82 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetailsResponseDTO create(UserSignupRequestDTO userSignupRequestDTO) {
+        logger.info("Attempting to create user with login: {}", userSignupRequestDTO.login());
+
         if (repository.existsByLogin(userSignupRequestDTO.login())) {
-            User newUser = new User(userSignupRequestDTO);
-            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            return new UserDetailsResponseDTO(repository.save(newUser));
-        } else {
+            logger.error("User creation failed: login {} already in use.", userSignupRequestDTO.login());
             throw new DataAlreadyInUseException("Login already in use");
         }
+
+        User newUser = new User(userSignupRequestDTO);
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+        User savedUser = repository.save(newUser);
+        logger.info("User created successfully with ID: {}", savedUser.getId());
+
+        return new UserDetailsResponseDTO(savedUser);
     }
 
     @Override
     public UserDetailsResponseDTO update(UserUpdateRequestDTO userUpdateRequestDTO) {
+        logger.info("Attempting to update user with ID: {}", userUpdateRequestDTO.id());
+
         Optional<User> optionalUser = repository.findById(userUpdateRequestDTO.id());
         if (optionalUser.isPresent()) {
-            User retrivedUser = optionalUser.get();
-            if (!retrivedUser.getLogin().equals(userUpdateRequestDTO.login())) {
-                if (repository.existsByLogin(userUpdateRequestDTO.login())) {
-                    throw new DataAlreadyInUseException("Login already in use");
-                }
+            User retrievedUser = optionalUser.get();
+
+            if (!retrievedUser.getLogin().equals(userUpdateRequestDTO.login()) &&
+                    repository.existsByLogin(userUpdateRequestDTO.login())) {
+                logger.error("User update failed: login {} already in use.", userUpdateRequestDTO.login());
+                throw new DataAlreadyInUseException("Login already in use");
             }
 
-            retrivedUser.setName(userUpdateRequestDTO.name());
-            retrivedUser.setLogin(userUpdateRequestDTO.login());
-            retrivedUser.setPassword(passwordEncoder.encode(userUpdateRequestDTO.password()));
+            retrievedUser.setName(userUpdateRequestDTO.name());
+            retrievedUser.setLogin(userUpdateRequestDTO.login());
+            retrievedUser.setPassword(passwordEncoder.encode(userUpdateRequestDTO.password()));
 
-            return new UserDetailsResponseDTO(repository.save(retrivedUser));
+            User updatedUser = repository.save(retrievedUser);
+            logger.info("User with ID: {} updated successfully.", updatedUser.getId());
+
+            return new UserDetailsResponseDTO(updatedUser);
         } else {
+            logger.error("User with ID: {} not found for update.", userUpdateRequestDTO.id());
             throw new DataNotFoundException("User not found");
         }
     }
 
     @Override
     public UserDetailsResponseDTO findById(UUID id) {
+        logger.info("Searching for user with ID: {}", id);
+
         Optional<User> optionalUser = repository.findById(id);
         if (optionalUser.isPresent()) {
+            logger.info("User found with ID: {}", id);
             return new UserDetailsResponseDTO(optionalUser.get());
         } else {
+            logger.error("User with ID: {} not found.", id);
             throw new DataNotFoundException("User not found");
         }
     }
 
     @Override
     public List<UserDetailsResponseDTO> findAll() {
-        return repository.findAll().stream().map(UserDetailsResponseDTO::new).toList();
+        logger.info("Retrieving all users.");
+        List<UserDetailsResponseDTO> users = repository.findAll().stream().map(UserDetailsResponseDTO::new).toList();
+        logger.info("Total users retrieved: {}", users.size());
+        return users;
     }
 
     @Override
     public void delete(UUID id) {
+        logger.info("Attempting to delete user with ID: {}", id);
+
+        if (!repository.existsById(id)) {
+            logger.error("User with ID: {} not found for deletion.", id);
+            throw new DataNotFoundException("User not found");
+        }
+
         repository.deleteById(id);
+        logger.info("User with ID: {} deleted successfully.", id);
     }
 }

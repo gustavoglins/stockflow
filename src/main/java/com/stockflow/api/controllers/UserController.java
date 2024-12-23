@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.UUID;
 @RequestMapping("/api/user")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -46,6 +49,7 @@ public class UserController {
     })
     @PutMapping
     public ResponseEntity<UserDetailsResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userUpdateRequestDTO) {
+        logger.info("Received request to update user information");
         return ResponseEntity.ok(userService.update(userUpdateRequestDTO));
     }
 
@@ -69,6 +73,7 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserDetailsResponseDTO> findById(@PathVariable UUID id) {
+        logger.info("Received request to find user by ID");
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -90,6 +95,7 @@ public class UserController {
     })
     @GetMapping
     public ResponseEntity<List<UserDetailsResponseDTO>> findAll() {
+        logger.info("Received request to find all users");
         return ResponseEntity.ok(userService.findAll());
     }
 
@@ -107,6 +113,7 @@ public class UserController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        logger.info("Received request to delete user by ID");
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
