@@ -38,6 +38,7 @@
         <java-jwt.version>4.4.0</java-jwt.version>
         <spring-doc.version>2.1.0</spring-doc.version>
         <spring-logging.version>3.4.1</spring-logging.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
     <dependencies>
 
@@ -114,6 +115,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Dependency for MapStruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+
         <!-- Dependency for Spring Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -140,6 +148,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
         </plugins>
     </build>
