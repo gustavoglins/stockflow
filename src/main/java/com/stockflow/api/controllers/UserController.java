@@ -1,6 +1,5 @@
 package com.stockflow.api.controllers;
 
-import com.stockflow.api.requests.user.UserSignupRequestDTO;
 import com.stockflow.api.requests.user.UserUpdateRequestDTO;
 import com.stockflow.api.responses.user.UserResponseDTO;
 import com.stockflow.domain.services.interfaces.UserService;
