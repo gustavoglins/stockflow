@@ -10,7 +10,7 @@ import java.util.UUID;
  * DTO for {@link User}
  */
 @JsonPropertyOrder({"id", "name", "login", "role"})
-public record UserDetailsResponseDTO(
+public record UserResponseDTO(
 
         UUID id,
 
@@ -20,13 +20,4 @@ public record UserDetailsResponseDTO(
 
         AuthRoles role
 ) {
-
-    public UserDetailsResponseDTO(User user) {
-        this(
-                user.getId(),
-                user.getName(),
-                user.getLogin(),
-                user.getRole()
-        );
-    }
 }

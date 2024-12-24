@@ -5,6 +5,8 @@ import com.stockflow.api.requests.user.UserSignupRequestDTO;
 import com.stockflow.api.responses.user.UserAuthResponseDTO;
 import com.stockflow.domain.entities.User;
 import com.stockflow.domain.repositories.UserRepository;
+import com.stockflow.shared.mappers.AuthMapper;
+import com.stockflow.shared.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,14 +18,19 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
+    private final UserMapper userMapper;
+    private final AuthMapper authMapper;
 
-    public AuthenticationService(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+    public AuthenticationService(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService, UserMapper userMapper, AuthMapper authMapper) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.tokenService = tokenService;
+        this.userMapper = userMapper;
+        this.authMapper = authMapper;
     }
 
     public UserAuthResponseDTO userSignup(UserSignupRequestDTO userSignupRequestDTO) {
@@ -36,7 +43,7 @@ public class AuthenticationService {
 
         logger.info("Starting password encryption process for user: {}", userSignupRequestDTO.login());
         String encryptedPassword = new BCryptPasswordEncoder().encode(userSignupRequestDTO.password());
-        User newUser = new User(userSignupRequestDTO);
+        User newUser = userMapper.toEntity(userSignupRequestDTO);
         newUser.setPassword(encryptedPassword);
         logger.info("Password encryption process completed for user: {}", userSignupRequestDTO.login());
 
@@ -46,7 +53,7 @@ public class AuthenticationService {
         var token = tokenService.generateToken(newUser);
 
         logger.info("Token successfully generated for user: {}", userSignupRequestDTO.login());
-        return new UserAuthResponseDTO(newUser.getLogin(), token);
+        return authMapper.toResponse(newUser.getLogin(), token);
     }
 
     public UserAuthResponseDTO userLogin(UserLoginRequestDTO userLoginRequestDTO) {
@@ -68,7 +75,7 @@ public class AuthenticationService {
             var token = tokenService.generateToken(user);
             logger.info("Login successful. Token generated for user: {}", user.getLogin());
 
-            return new UserAuthResponseDTO(user.getLogin(), token);
+            return authMapper.toResponse(user.getLogin(), token);
         } catch (Exception exception) {
             logger.error("Error during login attempt for user: {}", userLoginRequestDTO.login(), exception);
             throw new RuntimeException(exception.getMessage());

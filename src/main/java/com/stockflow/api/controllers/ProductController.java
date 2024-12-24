@@ -1,7 +1,7 @@
 package com.stockflow.api.controllers;
 
 import com.stockflow.api.requests.product.ProductRequestDTO;
-import com.stockflow.api.responses.product.ProductDetailsResponseDTO;
+import com.stockflow.api.responses.product.ProductResponseDTO;
 import com.stockflow.domain.services.interfaces.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -39,7 +39,7 @@ public class ProductController {
                     responseCode = "200", description = "Product created successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDetailsResponseDTO.class)
+                            schema = @Schema(implementation = ProductResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "400", description = "Invalid request body, missing fields, or invalid data format"),
@@ -48,7 +48,7 @@ public class ProductController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @PostMapping
-    public ResponseEntity<ProductDetailsResponseDTO> create(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<ProductResponseDTO> create(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         logger.info("Received request to create a new product");
         return ResponseEntity.ok(service.create(productRequestDTO));
     }
@@ -62,7 +62,7 @@ public class ProductController {
             @ApiResponse(
                     responseCode = "200", description = "Product updated successfully",
                     content = @Content(
-                            mediaType = "application/json", schema = @Schema(implementation = ProductDetailsResponseDTO.class)
+                            mediaType = "application/json", schema = @Schema(implementation = ProductResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "400", description = "Invalid request body, missing fields, or invalid data format"),
@@ -72,7 +72,7 @@ public class ProductController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @PutMapping
-    public ResponseEntity<ProductDetailsResponseDTO> update(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<ProductResponseDTO> update(@RequestBody @Valid ProductRequestDTO productRequestDTO) {
         logger.info("Received request to update an existing product");
         return ResponseEntity.ok(service.update(productRequestDTO));
     }
@@ -87,7 +87,7 @@ public class ProductController {
                     responseCode = "200", description = "Product found successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDetailsResponseDTO.class)
+                            schema = @Schema(implementation = ProductResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "400", description = "Invalid product ID format"),
@@ -96,7 +96,7 @@ public class ProductController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDetailsResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> findById(@PathVariable Long id) {
         logger.info("Received request to find product by ID");
         return ResponseEntity.ok(service.findById(id));
     }
@@ -111,14 +111,14 @@ public class ProductController {
                     responseCode = "200", description = "Products found successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ProductDetailsResponseDTO.class)
+                            schema = @Schema(implementation = ProductResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "500", description = "Internal server error, something went wrong"),
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping
-    public ResponseEntity<List<ProductDetailsResponseDTO>> findAll() {
+    public ResponseEntity<List<ProductResponseDTO>> findAll() {
         logger.info("Received request to find all products");
         return ResponseEntity.ok(service.findAll());
     }

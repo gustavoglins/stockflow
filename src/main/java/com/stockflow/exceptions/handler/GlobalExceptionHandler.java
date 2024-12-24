@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static ErrorResponseDTO messageBuilder(String message, String details, HttpStatus httpStatus) {
+        return null;
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> handleAllExceptions(Exception exception){
+    public ResponseEntity<ErrorResponseDTO> handleAllExceptions(Exception exception) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
                 "Unexpected Error!",
                 exception.getMessage(),
@@ -23,7 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ErrorResponseDTO> handleNullPointerException(NullPointerException exception) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-                "Erro de nulidade",
+                "Nullity error!",
                 exception.getMessage(),
                 HttpStatus.BAD_REQUEST.value()
         );
@@ -33,7 +37,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDTO> handleIllegalArgumentException(IllegalArgumentException exception) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(
-                "Argumento inválido",
+                "Invalid Argument!",
                 exception.getMessage(),
                 HttpStatus.BAD_REQUEST.value()
         );

@@ -1,7 +1,8 @@
 package com.stockflow.api.controllers;
 
+import com.stockflow.api.requests.user.UserSignupRequestDTO;
 import com.stockflow.api.requests.user.UserUpdateRequestDTO;
-import com.stockflow.api.responses.user.UserDetailsResponseDTO;
+import com.stockflow.api.responses.user.UserResponseDTO;
 import com.stockflow.domain.services.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,10 +23,11 @@ import java.util.UUID;
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    private final UserService service;
+
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @Operation(
@@ -38,7 +40,7 @@ public class UserController {
                     responseCode = "200", description = "User updated successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = UserDetailsResponseDTO.class)
+                            schema = @Schema(implementation = UserResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "400", description = "Invalid request body, missing fields, or invalid data format"),
@@ -48,9 +50,9 @@ public class UserController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @PutMapping
-    public ResponseEntity<UserDetailsResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userUpdateRequestDTO) {
+    public ResponseEntity<UserResponseDTO> update(@RequestBody @Valid UserUpdateRequestDTO userUpdateRequestDTO) {
         logger.info("Received request to update user information");
-        return ResponseEntity.ok(userService.update(userUpdateRequestDTO));
+        return ResponseEntity.ok(service.update(userUpdateRequestDTO));
     }
 
     @Operation(
@@ -63,7 +65,7 @@ public class UserController {
                     responseCode = "200", description = "User found successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = UserDetailsResponseDTO.class)
+                            schema = @Schema(implementation = UserResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "400", description = "Invalid user ID format"),
@@ -72,9 +74,9 @@ public class UserController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailsResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable UUID id) {
         logger.info("Received request to find user by ID");
-        return ResponseEntity.ok(userService.findById(id));
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @Operation(
@@ -87,16 +89,16 @@ public class UserController {
                     responseCode = "200", description = "List of users retrieved successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = UserDetailsResponseDTO.class)
+                            schema = @Schema(implementation = UserResponseDTO.class)
                     )
             ),
             @ApiResponse(responseCode = "500", description = "Internal server error, something went wrong"),
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping
-    public ResponseEntity<List<UserDetailsResponseDTO>> findAll() {
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
         logger.info("Received request to find all users");
-        return ResponseEntity.ok(userService.findAll());
+        return ResponseEntity.ok(service.findAll());
     }
 
     @Operation(
@@ -114,7 +116,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         logger.info("Received request to delete user by ID");
-        userService.delete(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

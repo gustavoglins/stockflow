@@ -35,14 +35,6 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(UserSignupRequestDTO userSignupRequestDTO) {
-        this.name = userSignupRequestDTO.name();
-        this.login = userSignupRequestDTO.login();
-        this.password = userSignupRequestDTO.password();
-        this.role = AuthRoles.COMMON_USER;
-        this.productList = new ArrayList<>();
-    }
-
     public UUID getId() {
         return id;
     }

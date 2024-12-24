@@ -6,7 +6,7 @@ import com.stockflow.domain.entities.Product;
 import java.util.UUID;
 
 @JsonPropertyOrder({"id", "name", "description", "price", "quantity", "userId", "userName"})
-public record ProductDetailsResponseDTO(
+public record ProductResponseDTO(
 
         Long id,
 
@@ -23,7 +23,7 @@ public record ProductDetailsResponseDTO(
         String userName
 ) {
 
-    public ProductDetailsResponseDTO(Product product) {
+    public ProductResponseDTO(Product product) {
         this(
                 product.getId(),
                 product.getName(),
