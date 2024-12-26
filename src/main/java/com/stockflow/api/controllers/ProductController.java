@@ -12,10 +12,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Tag(name = "Product", description = "Endpoints related to product management")
 @RestController
@@ -96,9 +100,18 @@ public class ProductController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<ProductResponseDTO>> findById(@PathVariable Long id) {
         logger.info("Received request to find product by ID");
-        return ResponseEntity.ok(service.findById(id));
+        ProductResponseDTO productResponseDTO = service.findById(id);
+
+        EntityModel<ProductResponseDTO> productModel = EntityModel.of(productResponseDTO);
+
+        productModel.add(linkTo(methodOn(ProductController.class).findAll()).withRel("list all").withType("GET"));
+        productModel.add(linkTo(methodOn(ProductController.class).create(null)).withRel("create").withType("POST"));
+        productModel.add(linkTo(methodOn(ProductController.class).update(null)).withRel("update").withType("PUT"));
+        productModel.add(linkTo(methodOn(ProductController.class).delete(id)).withRel("delete").withType("DELETE"));
+
+        return ResponseEntity.ok(productModel);
     }
 
     @Operation(
@@ -118,9 +131,22 @@ public class ProductController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> findAll() {
+    public ResponseEntity<List<EntityModel<ProductResponseDTO>>> findAll() {
         logger.info("Received request to find all products");
-        return ResponseEntity.ok(service.findAll());
+        List<ProductResponseDTO> productsList = service.findAll();
+
+        List<EntityModel<ProductResponseDTO>> productsModelList = productsList.stream()
+                .map(product -> EntityModel.of(
+                                product,
+                                linkTo(methodOn(ProductController.class).findById(product.id())).withSelfRel().withType("GET"),
+                                linkTo(methodOn(ProductController.class).create(null)).withRel("create").withType("POST"),
+                                linkTo(methodOn(ProductController.class).update(null)).withRel("update").withType("PUT"),
+                                linkTo(methodOn(ProductController.class).delete(product.id())).withRel("delete").withType("DELETE")
+                        )
+                )
+                .toList();
+
+        return ResponseEntity.ok(productsModelList);
     }
 
     @Operation(

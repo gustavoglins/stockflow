@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDTO create(ProductRequestDTO productRequestDTO) {
         logger.info("Attempting to create a product with name: {}", productRequestDTO.name());
 
-        if (repository.existsByName(productRequestDTO.name())) {
+        if (repository.existsByName(productRequestDTO.name())) { // Checks if this product is already registered
             logger.warn("Product creation failed: product with name {} already exists.", productRequestDTO.name());
             throw new DataAlreadyInUseException("Product already registered");
         }

@@ -5,6 +5,7 @@ import com.stockflow.api.requests.user.UserSignupRequestDTO;
 import com.stockflow.api.responses.user.UserAuthResponseDTO;
 import com.stockflow.domain.entities.User;
 import com.stockflow.domain.repositories.UserRepository;
+import com.stockflow.shared.enums.AuthRoles;
 import com.stockflow.shared.mappers.AuthMapper;
 import com.stockflow.shared.mappers.UserMapper;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class AuthenticationService {
         newUser.setPassword(encryptedPassword);
         logger.info("Password encryption process completed for user: {}", userSignupRequestDTO.login());
 
+        newUser.setRole(AuthRoles.COMMON_USER);
         userRepository.save(newUser);
 
         logger.info("User {} successfully registered. Generating token.", userSignupRequestDTO.login());

@@ -8,15 +8,21 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+@Tag(name = "User", description = "Endpoints related to user management")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -73,9 +79,20 @@ public class UserController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<EntityModel<UserResponseDTO>> findById(@PathVariable UUID id) {
         logger.info("Received request to find user by ID");
-        return ResponseEntity.ok(service.findById(id));
+
+        UserResponseDTO userResponseDTO = service.findById(id);
+
+        EntityModel<UserResponseDTO> userModel = EntityModel.of(userResponseDTO);
+
+        userModel.add(linkTo(methodOn(UserController.class).findAll()).withRel("list all").withType("GET"));
+        userModel.add(linkTo(methodOn(AuthenticationController.class).userSignup(null)).withRel("signup").withType("POST"));
+        userModel.add(linkTo(methodOn(AuthenticationController.class).userLogin(null)).withRel("login").withType("POST"));
+        userModel.add(linkTo(methodOn(UserController.class).update(null)).withRel("update").withType("PUT"));
+        userModel.add(linkTo(methodOn(UserController.class).delete(id)).withRel("delete").withType("DELETE"));
+
+        return ResponseEntity.ok(userModel);
     }
 
     @Operation(
@@ -95,9 +112,22 @@ public class UserController {
             @ApiResponse(responseCode = "503", description = "Service unavailable, try again later")
     })
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> findAll() {
+    public ResponseEntity<List<EntityModel<UserResponseDTO>>> findAll() {
         logger.info("Received request to find all users");
-        return ResponseEntity.ok(service.findAll());
+        List<UserResponseDTO> usersList = service.findAll();
+
+        List<EntityModel<UserResponseDTO>> usersModelList = usersList.stream()
+                .map(user -> EntityModel.of(
+                        user,
+                        linkTo(methodOn(UserController.class).findById(user.id())).withSelfRel().withType("GET"),
+                        linkTo(methodOn(AuthenticationController.class).userSignup(null)).withRel("signup").withType("POST"),
+                        linkTo(methodOn(AuthenticationController.class).userLogin(null)).withRel("login").withType("POST"),
+                        linkTo(methodOn(UserController.class).update(null)).withRel("update").withType("PUT"),
+                        linkTo(methodOn(UserController.class).delete(user.id())).withRel("delete").withType("DELETE")
+                ))
+                .toList();
+
+        return ResponseEntity.ok(usersModelList);
     }
 
     @Operation(

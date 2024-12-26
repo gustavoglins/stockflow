@@ -1,6 +1,5 @@
 package com.stockflow.domain.entities;
 
-import com.stockflow.api.requests.product.ProductRequestDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -30,14 +29,6 @@ public class Product {
     private User user;
 
     public Product() {
-    }
-
-    public Product(ProductRequestDTO productRequestDTO, User user) {
-        this.name = productRequestDTO.name();
-        this.description = productRequestDTO.description();
-        this.price = productRequestDTO.price();
-        this.quantity = productRequestDTO.quantity();
-        this.user = user;
     }
 
     public Long getId() {
